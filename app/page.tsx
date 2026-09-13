@@ -30,6 +30,7 @@ import {
 } from 'lucide-react';
 import TiltCard3D from '../components/TiltCard3D';
 import Model3DViewer from '../components/Model3DViewer';
+import AnimatedMarketplaceShowcase from '../components/AnimatedMarketplaceShowcase';
 
 export default function HomePage() {
   const { auctions, currency, formatPrice } = useAuction();
@@ -103,63 +104,63 @@ export default function HomePage() {
   return (
     <div className="space-y-16 pb-20">
       {/* Majestic Royal Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-[#060D1D] via-[#081226] to-[#050A14] pt-12 pb-16 border-b border-amber-500/20">
+      <section className="relative overflow-hidden bg-gradient-to-b from-amber-50/60 via-slate-50/50 to-white pt-12 pb-16 border-b border-slate-200">
         {/* Ambient Glows */}
-        <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-gradient-to-b from-amber-500/15 via-emerald-500/10 to-transparent rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute top-1/3 right-0 w-96 h-96 bg-emerald-600/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-gradient-to-b from-amber-200/30 via-emerald-100/20 to-transparent rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-1/3 right-0 w-96 h-96 bg-amber-200/20 rounded-full blur-3xl pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             {/* Left Hero Content */}
             <div className="lg:col-span-6 space-y-6">
-              <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#0D182E] border border-amber-500/40 text-amber-300 text-xs font-semibold shadow-lg shadow-amber-950/20">
-                <Crown className="w-4 h-4 text-amber-400" />
-                <span className="tracking-wide">Worldwide Premier Royal Auction Exchange</span>
+              <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white border border-amber-300 text-amber-900 text-xs font-semibold shadow-sm">
+                <Crown className="w-4 h-4 text-amber-600" />
+                <span className="tracking-wide font-bold">Worldwide Premier Royal Auction Exchange</span>
               </div>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-black tracking-tight text-white leading-[1.15]">
-                Where Rare Treasures Find Their <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-amber-500">Provenance.</span>
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-black tracking-tight text-slate-900 leading-[1.15]">
+                Where Rare Treasures Find Their <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 via-amber-500 to-amber-700">Provenance.</span>
               </h1>
 
-              <p className="text-base sm:text-lg text-slate-300 leading-relaxed max-w-xl font-light">
+              <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-xl font-normal">
                 Discover and acquire museum-grade antiques, certified horology, precious gems, bespoke vehicles, and landmark properties through competitive, fair-market bidding worldwide.
               </p>
 
               {/* Quick Trust Badges */}
-              <div className="flex flex-wrap items-center gap-5 text-xs font-medium text-slate-300 pt-1">
-                <span className="flex items-center gap-1.5 text-amber-300">
-                  <ShieldCheck className="w-4 h-4 text-amber-400" /> Bank & Global Escrow Protected
+              <div className="flex flex-wrap items-center gap-5 text-xs font-semibold text-slate-700 pt-1">
+                <span className="flex items-center gap-1.5 text-amber-800">
+                  <ShieldCheck className="w-4 h-4 text-amber-600" /> Bank & Global Escrow Protected
                 </span>
-                <span className="flex items-center gap-1.5 text-emerald-400">
-                  <Clock className="w-4 h-4 text-emerald-400" /> 2-Min Anti-Sniping Soft Close
+                <span className="flex items-center gap-1.5 text-emerald-800">
+                  <Clock className="w-4 h-4 text-emerald-600" /> 2-Min Anti-Sniping Soft Close
                 </span>
-                <span className="flex items-center gap-1.5 text-slate-300">
-                  <Award className="w-4 h-4 text-amber-400" /> Worldwide Insured Logistics
+                <span className="flex items-center gap-1.5 text-slate-700">
+                  <Award className="w-4 h-4 text-amber-600" /> Worldwide Insured Logistics
                 </span>
               </div>
 
               {/* Elegant Search Console */}
               <div className="pt-2">
-                <div className="relative flex items-center max-w-xl rounded-2xl bg-[#0B152A] border border-amber-500/30 p-2 shadow-2xl shadow-black focus-within:border-amber-400 transition-all">
-                  <Search className="w-5 h-5 text-amber-400 ml-3 shrink-0" />
+                <div className="relative flex items-center max-w-xl rounded-2xl bg-white border border-slate-300 p-2 shadow-lg focus-within:border-amber-500 transition-all">
+                  <Search className="w-5 h-5 text-amber-600 ml-3 shrink-0" />
                   <input
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Search Rolex, Mughal Astrolabe, FJ40, Gulberg Plot..."
-                    className="w-full bg-transparent px-3 py-2 text-sm text-slate-100 placeholder:text-slate-400 focus:outline-none"
+                    className="w-full bg-transparent px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none"
                   />
                   {searchQuery && (
                     <button
                       onClick={() => setSearchQuery('')}
-                      className="text-xs text-slate-400 hover:text-white px-2"
+                      className="text-xs text-slate-500 hover:text-slate-900 px-2"
                     >
                       Clear
                     </button>
                   )}
                   <Link
                     href="#auction-grid"
-                    className="px-6 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black text-xs uppercase tracking-wider shrink-0 transition-transform active:scale-95 shadow-md shadow-amber-950"
+                    className="px-6 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black text-xs uppercase tracking-wider shrink-0 transition-transform active:scale-95 shadow-md shadow-amber-950/20"
                   >
                     Search Lots
                   </Link>
@@ -171,24 +172,24 @@ export default function HomePage() {
             {spotlightAuction && (
               <div className="lg:col-span-6">
                 <TiltCard3D maxAngle={5}>
-                  <div className="relative rounded-3xl bg-gradient-to-tr from-amber-500/30 via-slate-800/60 to-emerald-500/30 p-[1.5px] shadow-2xl shadow-amber-500/10">
-                    <div className="bg-[#081020] rounded-[22px] p-6 sm:p-7 space-y-5">
+                  <div className="relative rounded-3xl bg-gradient-to-tr from-amber-300/40 via-slate-200/60 to-emerald-300/40 p-[1.5px] shadow-xl">
+                    <div className="bg-white rounded-[22px] p-6 sm:p-7 space-y-5 border border-slate-200">
                       {/* Header with Urgency & Lot Tag */}
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
-                          <span className="px-3 py-1 rounded-full bg-amber-500/15 border border-amber-500/40 text-amber-300 font-black text-xs flex items-center gap-1.5 uppercase tracking-wider">
-                            <Flame className="w-3.5 h-3.5 text-amber-400" /> Crown Lot
+                          <span className="px-3 py-1 rounded-full bg-amber-100 border border-amber-300 text-amber-900 font-black text-xs flex items-center gap-1.5 uppercase tracking-wider">
+                            <Flame className="w-3.5 h-3.5 text-amber-600" /> Crown Lot
                           </span>
-                          <span className="text-xs font-mono text-slate-400">LOT #{spotlightAuction.id.toUpperCase()}</span>
+                          <span className="text-xs font-mono text-slate-500 font-semibold">LOT #{spotlightAuction.id.toUpperCase()}</span>
                         </div>
-                        <span className="text-xs font-mono font-bold text-emerald-400 bg-emerald-950/80 px-3 py-1 rounded-full border border-emerald-800/60">
+                        <span className="text-xs font-mono font-bold text-emerald-800 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-300">
                           {spotlightAuction.bidsCount} Bids Active
                         </span>
                       </div>
 
                       {/* Spotlight Image & Details */}
                       <div className="grid grid-cols-1 sm:grid-cols-12 gap-5 items-center">
-                        <div className="relative sm:col-span-5 aspect-square rounded-2xl overflow-hidden bg-slate-950 border border-amber-500/20 shadow-inner group/thumb">
+                        <div className="relative sm:col-span-5 aspect-square rounded-2xl overflow-hidden bg-slate-100 border border-slate-200 shadow-inner group/thumb">
                           <Image
                             src={spotlightAuction.images[0]}
                             alt={spotlightAuction.title}
@@ -202,7 +203,7 @@ export default function HomePage() {
                                 e.stopPropagation();
                                 setShowSpotlight3DModal(true);
                               }}
-                              className="absolute inset-x-2 bottom-2 py-1.5 px-2.5 rounded-xl bg-amber-500/90 text-neutral-950 text-[11px] font-bold flex items-center justify-center gap-1 shadow-lg hover:bg-amber-400 transition-colors backdrop-blur-sm"
+                              className="absolute inset-x-2 bottom-2 py-1.5 px-2.5 rounded-xl bg-amber-500 text-slate-950 text-[11px] font-bold flex items-center justify-center gap-1 shadow-md hover:bg-amber-400 transition-colors backdrop-blur-sm"
                             >
                               <Box className="w-3.5 h-3.5" />
                               <span>Inspect in 3D</span>
@@ -212,47 +213,47 @@ export default function HomePage() {
 
                         <div className="sm:col-span-7 space-y-2.5">
                           <div className="flex items-center justify-between">
-                            <div className="text-xs font-semibold uppercase tracking-wider text-amber-400">
+                            <div className="text-xs font-semibold uppercase tracking-wider text-amber-700">
                               {spotlightAuction.category}
                             </div>
                             {spotlightAuction.model3dType && (
-                              <span className="text-[10px] text-amber-300 bg-amber-500/20 px-2 py-0.5 rounded-full border border-amber-500/30 flex items-center gap-1 font-mono">
+                              <span className="text-[10px] text-amber-800 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-300 flex items-center gap-1 font-mono font-bold">
                                 <Box className="w-3 h-3" /> 360° Mesh
                               </span>
                             )}
                           </div>
-                          <h2 className="text-xl sm:text-2xl font-serif font-bold text-white line-clamp-2 leading-snug">
+                          <h2 className="text-xl sm:text-2xl font-serif font-bold text-slate-900 line-clamp-2 leading-snug">
                             {spotlightAuction.title}
                           </h2>
-                          <p className="text-xs text-slate-400 line-clamp-2 leading-relaxed">
+                          <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed">
                             {spotlightAuction.description}
                           </p>
 
-                          <div className="flex items-center gap-2 text-xs text-slate-400 pt-1">
+                          <div className="flex items-center gap-2 text-xs text-slate-500 pt-1">
                             <span>Consignor:</span>
-                            <span className="font-bold text-slate-200">{spotlightAuction.seller.name}</span>
+                            <span className="font-bold text-slate-800">{spotlightAuction.seller.name}</span>
                             <span>•</span>
-                            <span className="text-amber-400 font-semibold">{spotlightAuction.seller.city}</span>
+                            <span className="text-amber-700 font-semibold">{spotlightAuction.seller.city}</span>
                           </div>
                         </div>
                       </div>
 
                       {/* Live Hammer Price & Ticking Countdown */}
-                      <div className="pt-4 border-t border-amber-500/15 grid grid-cols-1 sm:grid-cols-2 gap-4 items-end bg-[#0B152A]/80 p-4.5 rounded-2xl border border-amber-500/20">
+                      <div className="pt-4 border-t border-slate-100 grid grid-cols-1 sm:grid-cols-2 gap-4 items-end bg-slate-50 p-4.5 rounded-2xl border border-slate-200">
                         <div>
-                          <span className="text-[10px] uppercase font-black tracking-widest text-slate-400">
+                          <span className="text-[10px] uppercase font-black tracking-widest text-slate-500">
                             Current Hammer Price ({currency})
                           </span>
-                          <div className="text-3xl font-black text-amber-400 font-mono tracking-tight mt-0.5">
+                          <div className="text-3xl font-black text-amber-700 font-mono tracking-tight mt-0.5">
                             {formatPrice(spotlightAuction.currentBid)}
                           </div>
-                          <span className="text-[11px] text-emerald-400 font-medium">
+                          <span className="text-[11px] text-emerald-700 font-semibold">
                             Next Min Increment: +{formatPrice(spotlightAuction.minIncrement)}
                           </span>
                         </div>
 
                         <div className="sm:text-right">
-                          <span className="text-[10px] uppercase font-black tracking-widest text-slate-400 block mb-1">
+                          <span className="text-[10px] uppercase font-black tracking-widest text-slate-500 block mb-1">
                             Time Left To Bid
                           </span>
                           <div className="inline-block sm:float-right">
@@ -267,9 +268,9 @@ export default function HomePage() {
                           <button
                             type="button"
                             onClick={() => setShowSpotlight3DModal(true)}
-                            className="sm:col-span-5 flex items-center justify-center gap-1.5 py-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 border border-amber-500/30 font-bold text-xs uppercase tracking-wider transition-all"
+                            className="sm:col-span-5 flex items-center justify-center gap-1.5 py-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-amber-900 border border-amber-300 font-bold text-xs uppercase tracking-wider transition-all shadow-sm"
                           >
-                            <Box className="w-4 h-4 text-amber-400" />
+                            <Box className="w-4 h-4 text-amber-600" />
                             <span>3D Inspect</span>
                           </button>
                         )}
@@ -277,7 +278,7 @@ export default function HomePage() {
                           href={`/auction/${spotlightAuction.id}`}
                           className={`${
                             spotlightAuction.model3dType ? 'sm:col-span-7' : 'sm:col-span-12'
-                          } flex items-center justify-center gap-2 py-4 rounded-xl bg-gradient-to-r from-amber-500 via-amber-400 to-emerald-500 hover:from-amber-400 hover:to-emerald-400 text-slate-950 font-black text-sm uppercase tracking-wider shadow-xl shadow-amber-950/60 transition-transform active:scale-[0.98]`}
+                          } flex items-center justify-center gap-2 py-4 rounded-xl bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 hover:from-amber-400 hover:to-amber-300 text-slate-950 font-black text-sm uppercase tracking-wider shadow-md hover:shadow-lg transition-transform active:scale-[0.98]`}
                         >
                           <Gavel className="w-4 h-4" />
                           <span>Enter Bidding Room</span>
@@ -295,43 +296,46 @@ export default function HomePage() {
 
       {/* Prestige Stats Ticker Banner */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="rounded-3xl bg-gradient-to-r from-[#0C172E] via-[#0E1A34] to-[#0C172E] border border-amber-500/20 p-6 sm:p-8 shadow-2xl">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center divide-y lg:divide-y-0 lg:divide-x divide-amber-500/10">
+        <div className="rounded-3xl bg-white border border-slate-200 p-6 sm:p-8 shadow-sm">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center divide-y lg:divide-y-0 lg:divide-x divide-slate-100">
             <div className="pt-3 lg:pt-0">
-              <div className="text-2xl sm:text-3xl font-black font-mono text-amber-400">
+              <div className="text-2xl sm:text-3xl font-black font-mono text-amber-700">
                 {currency === 'USD' ? '$18.5M+' : currency === 'PKR' ? '₨ 4.8B+' : formatPrice(4800000000, true) + '+'}
               </div>
-              <p className="text-xs uppercase tracking-wider text-slate-400 mt-1 font-semibold">Global Hammer Volume</p>
+              <p className="text-xs uppercase tracking-wider text-slate-500 mt-1 font-semibold">Global Hammer Volume</p>
             </div>
 
             <div className="pt-3 lg:pt-0">
-              <div className="text-2xl sm:text-3xl font-black font-mono text-emerald-400">100% Insured</div>
-              <p className="text-xs uppercase tracking-wider text-slate-400 mt-1 font-semibold">Escrow Bank Guarantee</p>
+              <div className="text-2xl sm:text-3xl font-black font-mono text-emerald-700">100% Insured</div>
+              <p className="text-xs uppercase tracking-wider text-slate-500 mt-1 font-semibold">Escrow Bank Guarantee</p>
             </div>
 
             <div className="pt-3 lg:pt-0">
-              <div className="text-2xl sm:text-3xl font-black font-mono text-amber-400">14,200+ Lots</div>
-              <p className="text-xs uppercase tracking-wider text-slate-400 mt-1 font-semibold">Certified Antiquities & Goods</p>
+              <div className="text-2xl sm:text-3xl font-black font-mono text-amber-700">14,200+ Lots</div>
+              <p className="text-xs uppercase tracking-wider text-slate-500 mt-1 font-semibold">Certified Antiquities & Goods</p>
             </div>
 
             <div className="pt-3 lg:pt-0">
-              <div className="text-2xl sm:text-3xl font-black font-mono text-emerald-400">140+ Countries</div>
-              <p className="text-xs uppercase tracking-wider text-slate-400 mt-1 font-semibold">Global Bidders & Collectors</p>
+              <div className="text-2xl sm:text-3xl font-black font-mono text-emerald-700">140+ Countries</div>
+              <p className="text-xs uppercase tracking-wider text-slate-500 mt-1 font-semibold">Global Bidders & Collectors</p>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Animated Motion Video Experience for Bidders & Sellers */}
+      <AnimatedMarketplaceShowcase />
 
       {/* Main Auction Listings Container */}
       <div id="auction-grid" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
         {/* Categories Bar */}
         <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-serif font-bold text-white flex items-center gap-2.5">
-              <Sparkles className="w-5 h-5 text-amber-400" />
+            <h2 className="text-2xl font-serif font-bold text-slate-900 flex items-center gap-2.5">
+              <Sparkles className="w-5 h-5 text-amber-600" />
               <span>Explore Curated Auction Lots</span>
             </h2>
-            <span className="text-xs text-amber-300/80 font-mono font-bold bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/20">
+            <span className="text-xs text-amber-900 font-mono font-bold bg-amber-50 px-3 py-1 rounded-full border border-amber-300">
               {filteredAuctions.length} Active Lots In Pakistan
             </span>
           </div>
@@ -343,15 +347,15 @@ export default function HomePage() {
         </div>
 
         {/* Filters and Sorting Toolbar */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-4 rounded-2xl bg-[#091224] border border-amber-500/20">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-4 rounded-2xl bg-white border border-slate-200 shadow-sm">
           {/* Status Tabs */}
           <div className="flex items-center gap-2 overflow-x-auto no-scrollbar w-full sm:w-auto">
             <button
               onClick={() => setStatusFilter('all')}
               className={`px-4 py-2 rounded-xl text-xs font-semibold transition-colors shrink-0 ${
                 statusFilter === 'all'
-                  ? 'bg-amber-500 text-slate-950 font-bold'
-                  : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                  ? 'bg-amber-500 text-slate-950 font-bold shadow-sm'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
               }`}
             >
               All Items
@@ -360,19 +364,19 @@ export default function HomePage() {
               onClick={() => setStatusFilter('ending_soon')}
               className={`px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-colors shrink-0 ${
                 statusFilter === 'ending_soon'
-                  ? 'bg-amber-500 text-slate-950 font-bold'
-                  : 'text-amber-400 hover:bg-amber-950/40'
+                  ? 'bg-amber-500 text-slate-950 font-bold shadow-sm'
+                  : 'text-amber-800 hover:bg-amber-50'
               }`}
             >
-              <Flame className="w-3.5 h-3.5" />
+              <Flame className="w-3.5 h-3.5 text-amber-600" />
               Ending Soon
             </button>
             <button
               onClick={() => setStatusFilter('live')}
               className={`px-4 py-2 rounded-xl text-xs font-semibold transition-colors shrink-0 ${
                 statusFilter === 'live'
-                  ? 'bg-emerald-600 text-white font-bold'
-                  : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                  ? 'bg-emerald-700 text-white font-bold shadow-sm'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
               }`}
             >
               Active Bidding
@@ -381,8 +385,8 @@ export default function HomePage() {
               onClick={() => setStatusFilter('closed')}
               className={`px-4 py-2 rounded-xl text-xs font-semibold transition-colors shrink-0 ${
                 statusFilter === 'closed'
-                  ? 'bg-red-700 text-white font-bold'
-                  : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                  ? 'bg-red-700 text-white font-bold shadow-sm'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
               }`}
             >
               Past / Closed
@@ -391,11 +395,11 @@ export default function HomePage() {
 
           {/* Sort Selector */}
           <div className="flex items-center gap-2 self-end sm:self-auto text-xs">
-            <span className="text-slate-400 font-medium">Sort by:</span>
+            <span className="text-slate-500 font-medium">Sort by:</span>
             <select
               value={sortOption}
               onChange={(e) => setSortOption(e.target.value as SortOption)}
-              className="bg-[#0D182E] text-slate-200 border border-amber-500/30 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-amber-400 font-semibold"
+              className="bg-slate-50 text-slate-800 border border-slate-200 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-amber-400 font-semibold shadow-sm"
             >
               <option value="ending_soonest">Ending Soonest</option>
               <option value="bids_high">Most Bids</option>
@@ -414,10 +418,10 @@ export default function HomePage() {
             ))}
           </div>
         ) : (
-          <div className="text-center py-20 px-4 bg-[#081020] rounded-3xl border border-dashed border-amber-500/20 space-y-3">
-            <Gavel className="w-12 h-12 text-slate-600 mx-auto" />
-            <h3 className="text-lg font-serif font-bold text-slate-200">No matching auctions found</h3>
-            <p className="text-xs text-slate-400 max-w-sm mx-auto">
+          <div className="text-center py-20 px-4 bg-slate-50 rounded-3xl border border-dashed border-slate-300 space-y-3">
+            <Gavel className="w-12 h-12 text-slate-400 mx-auto" />
+            <h3 className="text-lg font-serif font-bold text-slate-800">No matching auctions found</h3>
+            <p className="text-xs text-slate-500 max-w-sm mx-auto">
               Try adjusting your category filter, keyword search, or status selection.
             </p>
             <button
@@ -426,7 +430,7 @@ export default function HomePage() {
                 setStatusFilter('all');
                 setSearchQuery('');
               }}
-              className="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-200"
+              className="px-5 py-2.5 rounded-xl bg-slate-200 hover:bg-slate-300 text-xs font-semibold text-slate-800"
             >
               Reset All Filters
             </button>
@@ -436,65 +440,65 @@ export default function HomePage() {
 
       {/* Grateful Collectors & Consignors (Gratitude & Trust Section) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
-        <div className="rounded-3xl bg-gradient-to-b from-[#091326] to-[#060D1D] border border-amber-500/20 p-8 sm:p-12 space-y-10 shadow-2xl">
+        <div className="rounded-3xl bg-slate-50 border border-slate-200 p-8 sm:p-12 space-y-10 shadow-sm">
           <div className="text-center max-w-2xl mx-auto space-y-3">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold uppercase tracking-wider">
-              <Star className="w-3.5 h-3.5 fill-amber-400" /> A Platform Built on Gratitude & Trust
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 border border-amber-300 text-amber-900 text-xs font-bold uppercase tracking-wider">
+              <Star className="w-3.5 h-3.5 fill-amber-500 text-amber-600" /> A Platform Built on Gratitude & Trust
             </div>
-            <h2 className="text-2xl sm:text-3xl font-serif font-bold text-white">
+            <h2 className="text-2xl sm:text-3xl font-serif font-bold text-slate-900">
               Words from Our Collectors & Consignors
             </h2>
-            <p className="text-xs sm:text-sm text-slate-400">
+            <p className="text-xs sm:text-sm text-slate-600">
               Thousands of successful bidding wars and consignments across Lahore, Karachi, Islamabad, and beyond.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="p-6 rounded-2xl bg-[#081020]/90 border border-amber-500/15 space-y-4 relative">
-              <Quote className="w-8 h-8 text-amber-500/20 absolute top-4 right-4" />
-              <div className="flex items-center gap-1 text-amber-400">
+            <div className="p-6 rounded-2xl bg-white border border-slate-200 space-y-4 relative shadow-sm">
+              <Quote className="w-8 h-8 text-amber-400/20 absolute top-4 right-4" />
+              <div className="flex items-center gap-1 text-amber-500">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} className="w-4 h-4 fill-amber-400" />
                 ))}
               </div>
-              <p className="text-xs text-slate-300 leading-relaxed italic">
+              <p className="text-xs text-slate-600 leading-relaxed italic">
                 "Consigning our ancestral 18th-century Mughal astrolabe with Neelami.com achieved 180% of our reserve price. The escrow settlement through Lahore bank trust gave our family absolute peace of mind."
               </p>
-              <div className="pt-2 border-t border-slate-800">
-                <div className="font-bold text-white text-xs">Malik Salman Qureshi</div>
-                <div className="text-[11px] text-amber-400">Art & Antique Consignor • Lahore</div>
+              <div className="pt-2 border-t border-slate-100">
+                <div className="font-bold text-slate-900 text-xs">Malik Salman Qureshi</div>
+                <div className="text-[11px] text-amber-700 font-semibold">Art & Antique Consignor • Lahore</div>
               </div>
             </div>
 
-            <div className="p-6 rounded-2xl bg-[#081020]/90 border border-amber-500/15 space-y-4 relative">
-              <Quote className="w-8 h-8 text-amber-500/20 absolute top-4 right-4" />
-              <div className="flex items-center gap-1 text-amber-400">
+            <div className="p-6 rounded-2xl bg-white border border-slate-200 space-y-4 relative shadow-sm">
+              <Quote className="w-8 h-8 text-amber-400/20 absolute top-4 right-4" />
+              <div className="flex items-center gap-1 text-amber-500">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} className="w-4 h-4 fill-amber-400" />
                 ))}
               </div>
-              <p className="text-xs text-slate-300 leading-relaxed italic">
+              <p className="text-xs text-slate-600 leading-relaxed italic">
                 "Winning my grail 1968 Rolex Submariner was thrilling! The anti-sniping protection made the bidding war completely fair, and the armored escort delivery to Clifton, Karachi arrived with full authentication papers."
               </p>
-              <div className="pt-2 border-t border-slate-800">
-                <div className="font-bold text-white text-xs">Dr. Ayesha Siddiqui</div>
-                <div className="text-[11px] text-amber-400">Horology Collector • Karachi</div>
+              <div className="pt-2 border-t border-slate-100">
+                <div className="font-bold text-slate-900 text-xs">Dr. Ayesha Siddiqui</div>
+                <div className="text-[11px] text-amber-700 font-semibold">Horology Collector • Karachi</div>
               </div>
             </div>
 
-            <div className="p-6 rounded-2xl bg-[#081020]/90 border border-amber-500/15 space-y-4 relative">
-              <Quote className="w-8 h-8 text-amber-500/20 absolute top-4 right-4" />
-              <div className="flex items-center gap-1 text-amber-400">
+            <div className="p-6 rounded-2xl bg-white border border-slate-200 space-y-4 relative shadow-sm">
+              <Quote className="w-8 h-8 text-amber-400/20 absolute top-4 right-4" />
+              <div className="flex items-center gap-1 text-amber-500">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} className="w-4 h-4 fill-amber-400" />
                 ))}
               </div>
-              <p className="text-xs text-slate-300 leading-relaxed italic">
+              <p className="text-xs text-slate-600 leading-relaxed italic">
                 "Neelami has modernized how high-value commercial properties are traded in Pakistan. Clear title verification and transparent bids eliminated the usual middlemen chaos for our Gulberg III land acquisition."
               </p>
-              <div className="pt-2 border-t border-slate-800">
-                <div className="font-bold text-white text-xs">Chaudhry Bilal Tariq</div>
-                <div className="text-[11px] text-amber-400">Real Estate Investor • Islamabad</div>
+              <div className="pt-2 border-t border-slate-100">
+                <div className="font-bold text-slate-900 text-xs">Chaudhry Bilal Tariq</div>
+                <div className="text-[11px] text-amber-700 font-semibold">Real Estate Investor • Islamabad</div>
               </div>
             </div>
           </div>
@@ -503,43 +507,43 @@ export default function HomePage() {
 
       {/* How Bidding Works Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="rounded-3xl bg-gradient-to-b from-[#081124] to-[#050A14] border border-amber-500/20 p-8 sm:p-12">
+        <div className="rounded-3xl bg-white border border-slate-200 p-8 sm:p-12 shadow-sm">
           <div className="text-center max-w-2xl mx-auto space-y-3 mb-10">
-            <h2 className="text-2xl sm:text-3xl font-serif font-bold text-white">
+            <h2 className="text-2xl sm:text-3xl font-serif font-bold text-slate-900">
               The Neelami Auction Standard
             </h2>
-            <p className="text-xs sm:text-sm text-slate-400">
+            <p className="text-xs sm:text-sm text-slate-600">
               Strict authenticity protocols, transparent live counters, and guaranteed escrow protection.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="p-6 rounded-2xl bg-[#070E1C] border border-amber-500/15 relative space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/30 flex items-center justify-center font-black font-mono text-lg">
+            <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 relative space-y-3">
+              <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-800 border border-amber-300 flex items-center justify-center font-black font-mono text-lg">
                 1
               </div>
-              <h3 className="font-serif font-bold text-slate-100 text-base">Appraisal & Consignment</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
+              <h3 className="font-serif font-bold text-slate-900 text-base">Appraisal & Consignment</h3>
+              <p className="text-xs text-slate-600 leading-relaxed">
                 Every lot undergoes rigorous inspection by certified gemologists, horologists, and antique appraisers before entering the exchange.
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-[#070E1C] border border-amber-500/15 relative space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 flex items-center justify-center font-black font-mono text-lg">
+            <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 relative space-y-3">
+              <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-800 border border-emerald-300 flex items-center justify-center font-black font-mono text-lg">
                 2
               </div>
-              <h3 className="font-serif font-bold text-slate-100 text-base">Anti-Sniping Live Bids</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
+              <h3 className="font-serif font-bold text-slate-900 text-base">Anti-Sniping Live Bids</h3>
+              <p className="text-xs text-slate-600 leading-relaxed">
                 Bids placed within the final 2 minutes trigger an automatic 2-minute clock extension, guaranteeing every genuine collector a fair counter-opportunity.
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-[#070E1C] border border-amber-500/15 relative space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/30 flex items-center justify-center font-black font-mono text-lg">
+            <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 relative space-y-3">
+              <div className="w-10 h-10 rounded-xl bg-blue-100 text-blue-800 border border-blue-300 flex items-center justify-center font-black font-mono text-lg">
                 3
               </div>
-              <h3 className="font-serif font-bold text-slate-100 text-base">Insured Bank Escrow</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
+              <h3 className="font-serif font-bold text-slate-900 text-base">Insured Bank Escrow</h3>
+              <p className="text-xs text-slate-600 leading-relaxed">
                 Funds remain secured in regulated escrow trust until the winning bidder receives, inspects, and approves their acquisition.
               </p>
             </div>
@@ -549,22 +553,22 @@ export default function HomePage() {
 
       {/* Royal Consignment Invitation */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-amber-950/40 via-[#0B152A] to-emerald-950/40 border border-amber-500/30 p-8 sm:p-12 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
+        <div className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-amber-50/70 via-white to-emerald-50/70 border border-amber-200 p-8 sm:p-12 flex flex-col md:flex-row items-center justify-between gap-6 shadow-md">
           <div className="space-y-3 text-center md:text-left">
-            <span className="text-xs font-mono uppercase tracking-widest text-amber-400 font-bold flex items-center gap-1.5 justify-center md:justify-start">
-              <Crown className="w-4 h-4 text-amber-400" /> Consign With Neelami Royal Exchange
+            <span className="text-xs font-mono uppercase tracking-widest text-amber-800 font-bold flex items-center gap-1.5 justify-center md:justify-start">
+              <Crown className="w-4 h-4 text-amber-600" /> Consign With Neelami Royal Exchange
             </span>
-            <h3 className="text-2xl sm:text-3xl font-serif font-bold text-white">
+            <h3 className="text-2xl sm:text-3xl font-serif font-bold text-slate-900">
               Have Rare Assets or Collections to Auction in Pakistan?
             </h3>
-            <p className="text-xs sm:text-sm text-slate-300 max-w-xl font-light">
+            <p className="text-xs sm:text-sm text-slate-600 max-w-xl font-normal">
               Connect directly with high-net-worth collectors and investors across Karachi, Lahore, and Islamabad. Achieve maximum hammer value with complete discretion.
             </p>
           </div>
 
           <Link
             href="/sell"
-            className="shrink-0 px-8 py-4 rounded-2xl bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 hover:from-amber-400 hover:to-amber-300 text-slate-950 font-black text-xs uppercase tracking-wider shadow-2xl shadow-amber-950/60 flex items-center gap-2 transition-transform active:scale-95"
+            className="shrink-0 px-8 py-4 rounded-2xl bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 hover:from-amber-400 hover:to-amber-300 text-slate-950 font-black text-xs uppercase tracking-wider shadow-md hover:shadow-lg flex items-center gap-2 transition-transform active:scale-95"
           >
             <span>Submit a Consignment</span>
             <ChevronRight className="w-4 h-4" />

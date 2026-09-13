@@ -54,11 +54,11 @@ export const CountdownTimer: React.FC<CountdownTimerProps> = ({
           isAntiSnipeZone
             ? 'bg-red-600 text-white animate-pulse shadow-md shadow-red-500/30'
             : isUrgent
-            ? 'bg-amber-500 text-slate-900'
-            : 'bg-slate-800 text-emerald-400 border border-slate-700'
+            ? 'bg-amber-500 text-slate-950'
+            : 'bg-slate-100 text-emerald-800 border border-slate-200'
         }`}
       >
-        {isAntiSnipeZone ? <Flame className="w-3.5 h-3.5" /> : <Clock className="w-3.5 h-3.5" />}
+        {isAntiSnipeZone ? <Flame className="w-3.5 h-3.5" /> : <Clock className="w-3.5 h-3.5 text-amber-600" />}
         <span>
           {timeLeft.days > 0 ? `${timeLeft.days}d ` : ''}
           {String(timeLeft.hours).padStart(2, '0')}:{String(timeLeft.minutes).padStart(2, '0')}:
@@ -71,7 +71,7 @@ export const CountdownTimer: React.FC<CountdownTimerProps> = ({
   return (
     <div className="flex flex-col gap-1.5">
       {isAntiSnipeZone && (
-        <div className="flex items-center gap-1.5 text-xs font-bold text-red-500 animate-bounce">
+        <div className="flex items-center gap-1.5 text-xs font-bold text-red-600 animate-bounce">
           <ShieldAlert className="w-4 h-4" />
           <span>Anti-Sniping Active (2m auto-extension)</span>
         </div>
@@ -79,41 +79,41 @@ export const CountdownTimer: React.FC<CountdownTimerProps> = ({
 
       <div className="grid grid-flow-col gap-2 text-center auto-cols-max">
         {timeLeft.days > 0 && (
-          <div className="flex flex-col p-2 bg-slate-900/80 rounded-lg border border-slate-800 text-white min-w-[54px]">
-            <span className="font-mono text-2xl font-black text-amber-400">
+          <div className="flex flex-col p-2 bg-white rounded-xl border border-slate-200 text-slate-900 shadow-sm min-w-[54px]">
+            <span className="font-mono text-2xl font-black text-amber-700">
               {String(timeLeft.days).padStart(2, '0')}
             </span>
-            {showLabels && <span className="text-[10px] uppercase tracking-wider text-slate-400">Days</span>}
+            {showLabels && <span className="text-[10px] uppercase tracking-wider text-slate-500 font-semibold">Days</span>}
           </div>
         )}
 
-        <div className="flex flex-col p-2 bg-slate-900/80 rounded-lg border border-slate-800 text-white min-w-[54px]">
-          <span className="font-mono text-2xl font-black text-amber-400">
+        <div className="flex flex-col p-2 bg-white rounded-xl border border-slate-200 text-slate-900 shadow-sm min-w-[54px]">
+          <span className="font-mono text-2xl font-black text-amber-700">
             {String(timeLeft.hours).padStart(2, '0')}
           </span>
-          {showLabels && <span className="text-[10px] uppercase tracking-wider text-slate-400">Hours</span>}
+          {showLabels && <span className="text-[10px] uppercase tracking-wider text-slate-500 font-semibold">Hours</span>}
         </div>
 
-        <div className="flex flex-col p-2 bg-slate-900/80 rounded-lg border border-slate-800 text-white min-w-[54px]">
+        <div className="flex flex-col p-2 bg-white rounded-xl border border-slate-200 text-slate-900 shadow-sm min-w-[54px]">
           <span
             className={`font-mono text-2xl font-black ${
-              isUrgent ? 'text-red-400 animate-pulse' : 'text-amber-400'
+              isUrgent ? 'text-red-600 animate-pulse' : 'text-amber-700'
             }`}
           >
             {String(timeLeft.minutes).padStart(2, '0')}
           </span>
-          {showLabels && <span className="text-[10px] uppercase tracking-wider text-slate-400">Mins</span>}
+          {showLabels && <span className="text-[10px] uppercase tracking-wider text-slate-500 font-semibold">Mins</span>}
         </div>
 
-        <div className="flex flex-col p-2 bg-slate-900/80 rounded-lg border border-slate-800 text-white min-w-[54px]">
+        <div className="flex flex-col p-2 bg-white rounded-xl border border-slate-200 text-slate-900 shadow-sm min-w-[54px]">
           <span
             className={`font-mono text-2xl font-black ${
-              isAntiSnipeZone ? 'text-red-500 animate-ping' : 'text-emerald-400'
+              isAntiSnipeZone ? 'text-red-600 animate-ping' : 'text-emerald-700'
             }`}
           >
             {String(timeLeft.seconds).padStart(2, '0')}
           </span>
-          {showLabels && <span className="text-[10px] uppercase tracking-wider text-slate-400">Secs</span>}
+          {showLabels && <span className="text-[10px] uppercase tracking-wider text-slate-500 font-semibold">Secs</span>}
         </div>
       </div>
     </div>

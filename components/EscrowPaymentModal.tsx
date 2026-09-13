@@ -71,12 +71,12 @@ export const EscrowPaymentModal: React.FC<EscrowPaymentModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-in fade-in duration-200">
-      <div className="relative w-full max-w-xl bg-[#0B152A] border border-amber-500/30 rounded-3xl p-6 sm:p-8 shadow-2xl shadow-black text-slate-100 max-h-[92vh] overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+      <div className="relative w-full max-w-xl bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-2xl text-slate-900 max-h-[92vh] overflow-y-auto">
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-5 right-5 p-2 rounded-full text-slate-400 hover:text-white bg-slate-900 border border-slate-800 transition-colors"
+          className="absolute top-5 right-5 p-2 rounded-full text-slate-400 hover:text-slate-700 bg-slate-100 border border-slate-200 transition-colors"
         >
           <X className="w-5 h-5" />
         </button>
@@ -86,55 +86,55 @@ export const EscrowPaymentModal: React.FC<EscrowPaymentModalProps> = ({
             {/* Header */}
             <div>
               <div className="flex items-center gap-2 mb-1.5">
-                <span className="text-xs font-mono font-bold text-amber-400 bg-amber-500/10 px-2.5 py-0.5 rounded-full border border-amber-500/20">
+                <span className="text-xs font-mono font-bold text-amber-800 bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200">
                   SAFE-ESCROW SETTLEMENT
                 </span>
-                <span className="text-xs text-slate-400">LOT #{auction.id.toUpperCase()}</span>
+                <span className="text-xs text-slate-500">LOT #{auction.id.toUpperCase()}</span>
               </div>
-              <h2 className="text-2xl font-serif font-bold text-white">
+              <h2 className="text-2xl font-serif font-bold text-slate-900">
                 Payment & Escrow Deposit
               </h2>
-              <p className="text-xs text-slate-400 mt-1">
+              <p className="text-xs text-slate-500 mt-1">
                 Your payment is held safely by Neelami.com until your item is delivered, inspected, and verified.
               </p>
             </div>
 
             {/* Direct Warning: Pay Company, NOT Seller */}
-            <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/40 text-xs text-amber-200 space-y-1">
-              <div className="flex items-center gap-2 text-amber-300 font-bold uppercase tracking-wide">
-                <ShieldCheck className="w-4 h-4 text-amber-400 shrink-0" />
+            <div className="p-4 rounded-2xl bg-amber-50 border border-amber-200 text-xs text-amber-950 space-y-1">
+              <div className="flex items-center gap-2 text-amber-800 font-bold uppercase tracking-wide">
+                <ShieldCheck className="w-4 h-4 text-amber-600 shrink-0" />
                 <span>Pay to Neelami.com (Company) — NEVER to the Seller Person</span>
               </div>
-              <p className="text-[11px] text-slate-300 leading-relaxed pl-6">
+              <p className="text-[11px] text-slate-600 leading-relaxed pl-6">
                 For buyer safety, you are depositing funds into <strong>Neelami.com (Private) Limited Official Trust</strong>. The consignor ({auction.seller.name}) is only paid after you inspect and sign off on the delivery.
               </p>
             </div>
 
             {/* Price Breakdown */}
-            <div className="p-4.5 rounded-2xl bg-[#081020] border border-amber-500/20 space-y-2.5 text-xs">
-              <div className="flex items-center justify-between text-slate-300">
+            <div className="p-4.5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2.5 text-xs">
+              <div className="flex items-center justify-between text-slate-600">
                 <span>Winning Hammer Bid:</span>
-                <span className="font-mono font-bold text-sm text-slate-100">{formatPrice(hammerPrice)}</span>
+                <span className="font-mono font-bold text-sm text-slate-900">{formatPrice(hammerPrice)}</span>
               </div>
-              <div className="flex items-center justify-between text-slate-300">
+              <div className="flex items-center justify-between text-slate-600">
                 <span>Neelami Escrow Protection (1%):</span>
-                <span className="font-mono font-semibold">{formatPrice(escrowFee)}</span>
+                <span className="font-mono font-semibold text-slate-800">{formatPrice(escrowFee)}</span>
               </div>
-              <div className="flex items-center justify-between text-slate-300">
+              <div className="flex items-center justify-between text-slate-600">
                 <span>Insured Global / Domestic Delivery:</span>
-                <span className="font-mono font-semibold">
+                <span className="font-mono font-semibold text-slate-800">
                   {shippingFee === 0 ? 'Complimentary' : formatPrice(shippingFee)}
                 </span>
               </div>
-              <div className="pt-2 border-t border-amber-500/15 flex items-center justify-between font-bold text-sm">
-                <span className="text-amber-300">Total Escrow Deposit ({currency}):</span>
-                <span className="text-xl font-mono text-amber-400">{formatPrice(totalAmount)}</span>
+              <div className="pt-2 border-t border-slate-200 flex items-center justify-between font-bold text-sm">
+                <span className="text-slate-800">Total Escrow Deposit ({currency}):</span>
+                <span className="text-xl font-mono text-amber-700">{formatPrice(totalAmount)}</span>
               </div>
             </div>
 
             {/* Payment Method Selector */}
             <div className="space-y-3">
-              <label className="text-xs font-bold uppercase tracking-wider text-slate-300 block">
+              <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block">
                 Choose Payment Method ({currency === 'PKR' ? 'Domestic Pakistan' : 'Worldwide & Multi-Currency'}):
               </label>
 
@@ -145,19 +145,19 @@ export const EscrowPaymentModal: React.FC<EscrowPaymentModalProps> = ({
                   onClick={() => setSelectedMethod('card')}
                   className={`p-3.5 rounded-2xl border text-left transition-all flex items-start gap-3 ${
                     selectedMethod === 'card'
-                      ? 'bg-amber-500/15 border-amber-500 text-white shadow-md shadow-amber-950'
-                      : 'bg-[#081020] border-slate-800 text-slate-300 hover:border-slate-700'
+                      ? 'bg-amber-50/70 border-amber-500 text-slate-900 shadow-sm'
+                      : 'bg-slate-50 border-slate-200 text-slate-700 hover:border-slate-300'
                   }`}
                 >
-                  <div className="p-2 rounded-xl bg-emerald-500/20 text-emerald-400 shrink-0">
+                  <div className="p-2 rounded-xl bg-emerald-100 text-emerald-800 shrink-0">
                     <CreditCard className="w-5 h-5" />
                   </div>
                   <div>
                     <div className="font-bold text-xs flex items-center gap-1.5">
                       <span>Card & Apple Pay</span>
-                      <span className="text-[9px] bg-emerald-950 text-emerald-300 px-1 rounded font-mono">Global</span>
+                      <span className="text-[9px] bg-emerald-100 text-emerald-800 px-1 rounded font-mono">Global</span>
                     </div>
-                    <p className="text-[11px] text-slate-400 mt-0.5 leading-snug">
+                    <p className="text-[11px] text-slate-500 mt-0.5 leading-snug">
                       Visa, Mastercard, Amex, Apple Pay. 3D Secure 256-bit SSL.
                     </p>
                   </div>
@@ -169,19 +169,19 @@ export const EscrowPaymentModal: React.FC<EscrowPaymentModalProps> = ({
                   onClick={() => setSelectedMethod('swift_wire')}
                   className={`p-3.5 rounded-2xl border text-left transition-all flex items-start gap-3 ${
                     selectedMethod === 'swift_wire'
-                      ? 'bg-amber-500/15 border-amber-500 text-white shadow-md shadow-amber-950'
-                      : 'bg-[#081020] border-slate-800 text-slate-300 hover:border-slate-700'
+                      ? 'bg-amber-50/70 border-amber-500 text-slate-900 shadow-sm'
+                      : 'bg-slate-50 border-slate-200 text-slate-700 hover:border-slate-300'
                   }`}
                 >
-                  <div className="p-2 rounded-xl bg-blue-500/20 text-blue-400 shrink-0">
+                  <div className="p-2 rounded-xl bg-blue-100 text-blue-800 shrink-0">
                     <Globe className="w-5 h-5" />
                   </div>
                   <div>
                     <div className="font-bold text-xs flex items-center gap-1.5">
                       <span>SWIFT Global Wire</span>
-                      <span className="text-[9px] bg-blue-950 text-blue-300 px-1 rounded font-mono">USD/EUR/GBP</span>
+                      <span className="text-[9px] bg-blue-100 text-blue-800 px-1 rounded font-mono">USD/EUR/GBP</span>
                     </div>
-                    <p className="text-[11px] text-slate-400 mt-0.5 leading-snug">
+                    <p className="text-[11px] text-slate-500 mt-0.5 leading-snug">
                       Standard Chartered Global Trust. Direct SWIFT transfer.
                     </p>
                   </div>
@@ -193,19 +193,19 @@ export const EscrowPaymentModal: React.FC<EscrowPaymentModalProps> = ({
                   onClick={() => setSelectedMethod('raast')}
                   className={`p-3.5 rounded-2xl border text-left transition-all flex items-start gap-3 ${
                     selectedMethod === 'raast'
-                      ? 'bg-amber-500/15 border-amber-500 text-white shadow-md shadow-amber-950'
-                      : 'bg-[#081020] border-slate-800 text-slate-300 hover:border-slate-700'
+                      ? 'bg-amber-50/70 border-amber-500 text-slate-900 shadow-sm'
+                      : 'bg-slate-50 border-slate-200 text-slate-700 hover:border-slate-300'
                   }`}
                 >
-                  <div className="p-2 rounded-xl bg-amber-500/20 text-amber-400 shrink-0">
+                  <div className="p-2 rounded-xl bg-amber-100 text-amber-800 shrink-0">
                     <QrCode className="w-5 h-5" />
                   </div>
                   <div>
                     <div className="font-bold text-xs flex items-center gap-1.5">
                       <span>Raast Instant P2M</span>
-                      <span className="text-[9px] bg-emerald-950 text-emerald-300 px-1 rounded font-mono">0% Fee</span>
+                      <span className="text-[9px] bg-emerald-100 text-emerald-800 px-1 rounded font-mono">0% Fee</span>
                     </div>
-                    <p className="text-[11px] text-slate-400 mt-0.5 leading-snug">
+                    <p className="text-[11px] text-slate-500 mt-0.5 leading-snug">
                       Instant State Bank Raast ID / QR for Pakistani bank apps.
                     </p>
                   </div>
@@ -217,16 +217,16 @@ export const EscrowPaymentModal: React.FC<EscrowPaymentModalProps> = ({
                   onClick={() => setSelectedMethod('bank_transfer')}
                   className={`p-3.5 rounded-2xl border text-left transition-all flex items-start gap-3 ${
                     selectedMethod === 'bank_transfer'
-                      ? 'bg-amber-500/15 border-amber-500 text-white shadow-md shadow-amber-950'
-                      : 'bg-[#081020] border-slate-800 text-slate-300 hover:border-slate-700'
+                      ? 'bg-amber-50/70 border-amber-500 text-slate-900 shadow-sm'
+                      : 'bg-slate-50 border-slate-200 text-slate-700 hover:border-slate-300'
                   }`}
                 >
-                  <div className="p-2 rounded-xl bg-purple-500/20 text-purple-400 shrink-0">
+                  <div className="p-2 rounded-xl bg-purple-100 text-purple-800 shrink-0">
                     <Building2 className="w-5 h-5" />
                   </div>
                   <div>
                     <div className="font-bold text-xs">1Link IBFT Bank Wire</div>
-                    <p className="text-[11px] text-slate-400 mt-0.5 leading-snug">
+                    <p className="text-[11px] text-slate-500 mt-0.5 leading-snug">
                       Habib Bank Limited & Meezan Bank Escrow Trust.
                     </p>
                   </div>
@@ -238,16 +238,16 @@ export const EscrowPaymentModal: React.FC<EscrowPaymentModalProps> = ({
                   onClick={() => setSelectedMethod('wallet')}
                   className={`p-3.5 rounded-2xl border text-left transition-all flex items-start gap-3 ${
                     selectedMethod === 'wallet'
-                      ? 'bg-amber-500/15 border-amber-500 text-white shadow-md shadow-amber-950'
-                      : 'bg-[#081020] border-slate-800 text-slate-300 hover:border-slate-700'
+                      ? 'bg-amber-50/70 border-amber-500 text-slate-900 shadow-sm'
+                      : 'bg-slate-50 border-slate-200 text-slate-700 hover:border-slate-300'
                   }`}
                 >
-                  <div className="p-2 rounded-xl bg-orange-500/20 text-orange-400 shrink-0">
+                  <div className="p-2 rounded-xl bg-orange-100 text-orange-800 shrink-0">
                     <Smartphone className="w-5 h-5" />
                   </div>
                   <div>
                     <div className="font-bold text-xs">JazzCash & EasyPaisa</div>
-                    <p className="text-[11px] text-slate-400 mt-0.5 leading-snug">
+                    <p className="text-[11px] text-slate-500 mt-0.5 leading-snug">
                       Instant mobile wallet PIN approval.
                     </p>
                   </div>
@@ -259,16 +259,16 @@ export const EscrowPaymentModal: React.FC<EscrowPaymentModalProps> = ({
                   onClick={() => setSelectedMethod('pay_order')}
                   className={`p-3.5 rounded-2xl border text-left transition-all flex items-start gap-3 ${
                     selectedMethod === 'pay_order'
-                      ? 'bg-amber-500/15 border-amber-500 text-white shadow-md shadow-amber-950'
-                      : 'bg-[#081020] border-slate-800 text-slate-300 hover:border-slate-700'
+                      ? 'bg-amber-50/70 border-amber-500 text-slate-900 shadow-sm'
+                      : 'bg-slate-50 border-slate-200 text-slate-700 hover:border-slate-300'
                   }`}
                 >
-                  <div className="p-2 rounded-xl bg-amber-500/20 text-amber-400 shrink-0">
+                  <div className="p-2 rounded-xl bg-amber-100 text-amber-800 shrink-0">
                     <FileText className="w-5 h-5" />
                   </div>
                   <div>
                     <div className="font-bold text-xs">Banker's Pay Order</div>
-                    <p className="text-[11px] text-slate-400 mt-0.5 leading-snug">
+                    <p className="text-[11px] text-slate-500 mt-0.5 leading-snug">
                       Certified Cheque for high-value lots (Vehicles/Estate).
                     </p>
                   </div>
@@ -277,14 +277,14 @@ export const EscrowPaymentModal: React.FC<EscrowPaymentModalProps> = ({
             </div>
 
             {/* Selected Method Details Preview */}
-            <div className="p-4 rounded-2xl bg-[#081020] border border-amber-500/15 text-xs space-y-2">
+            <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-xs space-y-2">
               {selectedMethod === 'swift_wire' && (
                 <div className="space-y-1">
-                  <div className="font-bold text-blue-300">Standard Chartered Global Escrow Account:</div>
-                  <div className="text-slate-300 text-[11px] font-mono bg-slate-900 p-2.5 rounded-lg border border-slate-800 space-y-0.5">
-                    <div>Beneficiary: <strong>Neelami International Escrow Limited</strong></div>
-                    <div>SWIFT / BIC: <strong>SCBLPKKAX</strong></div>
-                    <div>IBAN (USD/EUR/GBP): <strong>PK88 SCBL 0000 0011 2233 4455</strong></div>
+                  <div className="font-bold text-blue-800">Standard Chartered Global Escrow Account:</div>
+                  <div className="text-slate-700 text-[11px] font-mono bg-white p-2.5 rounded-lg border border-slate-200 space-y-0.5">
+                    <div>Beneficiary: <strong className="text-slate-900">Neelami International Escrow Limited</strong></div>
+                    <div>SWIFT / BIC: <strong className="text-slate-900">SCBLPKKAX</strong></div>
+                    <div>IBAN (USD/EUR/GBP): <strong className="text-slate-900">PK88 SCBL 0000 0011 2233 4455</strong></div>
                     <div>Correspondent: Standard Chartered Bank New York / London</div>
                   </div>
                 </div>
@@ -292,20 +292,20 @@ export const EscrowPaymentModal: React.FC<EscrowPaymentModalProps> = ({
 
               {selectedMethod === 'raast' && (
                 <div className="space-y-1">
-                  <div className="font-bold text-amber-300">State Bank Raast Instant Transfer:</div>
-                  <div className="text-slate-300 flex items-center justify-between font-mono bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-800">
-                    <span>Raast ID: <strong>neelami.escrow@hbl</strong></span>
-                    <span className="text-emerald-400 font-bold">Instant Verification</span>
+                  <div className="font-bold text-amber-800">State Bank Raast Instant Transfer:</div>
+                  <div className="text-slate-700 flex items-center justify-between font-mono bg-white px-3 py-1.5 rounded-lg border border-slate-200">
+                    <span>Raast ID: <strong className="text-slate-900">neelami.escrow@hbl</strong></span>
+                    <span className="text-emerald-700 font-bold">Instant Verification</span>
                   </div>
                 </div>
               )}
 
               {selectedMethod === 'bank_transfer' && (
                 <div className="space-y-1">
-                  <div className="font-bold text-blue-300">Meezan Bank Escrow Trust Account:</div>
-                  <div className="text-slate-300 text-[11px] font-mono bg-slate-900 p-2.5 rounded-lg border border-slate-800 space-y-0.5">
-                    <div>Title: <strong>Neelami Escrow Trustee Private Limited</strong></div>
-                    <div>IBAN: <strong>PK36 MEZN 0001 2345 6789 0123</strong></div>
+                  <div className="font-bold text-blue-800">Meezan Bank Escrow Trust Account:</div>
+                  <div className="text-slate-700 text-[11px] font-mono bg-white p-2.5 rounded-lg border border-slate-200 space-y-0.5">
+                    <div>Title: <strong className="text-slate-900">Neelami Escrow Trustee Private Limited</strong></div>
+                    <div>IBAN: <strong className="text-slate-900">PK36 MEZN 0001 2345 6789 0123</strong></div>
                     <div>Branch: Main Gulberg Branch, Lahore</div>
                   </div>
                 </div>
@@ -313,8 +313,8 @@ export const EscrowPaymentModal: React.FC<EscrowPaymentModalProps> = ({
 
               {selectedMethod === 'card' && (
                 <div className="space-y-1">
-                  <div className="font-bold text-emerald-300">Visa, Mastercard, Amex, & Apple Pay Gateway:</div>
-                  <p className="text-slate-400 text-[11px]">
+                  <div className="font-bold text-emerald-800">Visa, Mastercard, Amex, & Apple Pay Gateway:</div>
+                  <p className="text-slate-500 text-[11px]">
                     Global checkout encrypted via 256-bit SSL. Multi-currency settlement in {currency}.
                   </p>
                 </div>
@@ -322,8 +322,8 @@ export const EscrowPaymentModal: React.FC<EscrowPaymentModalProps> = ({
 
               {selectedMethod === 'wallet' && (
                 <div className="space-y-1">
-                  <div className="font-bold text-purple-300">JazzCash / EasyPaisa Mobile Checkout:</div>
-                  <p className="text-slate-400 text-[11px]">
+                  <div className="font-bold text-purple-800">JazzCash / EasyPaisa Mobile Checkout:</div>
+                  <p className="text-slate-500 text-[11px]">
                     Enter your mobile wallet number to receive an instant MPIN confirmation prompt on your phone.
                   </p>
                 </div>
@@ -331,8 +331,8 @@ export const EscrowPaymentModal: React.FC<EscrowPaymentModalProps> = ({
 
               {selectedMethod === 'pay_order' && (
                 <div className="space-y-1">
-                  <div className="font-bold text-amber-300">Certified Banker's Pay Order:</div>
-                  <p className="text-slate-400 text-[11px]">
+                  <div className="font-bold text-amber-800">Certified Banker's Pay Order:</div>
+                  <p className="text-slate-500 text-[11px]">
                     Issue pay order from any scheduled bank. Handover scheduled at certified registry office.
                   </p>
                 </div>
@@ -340,10 +340,10 @@ export const EscrowPaymentModal: React.FC<EscrowPaymentModalProps> = ({
             </div>
 
             {/* Escrow Guarantee Notice */}
-            <div className="p-3.5 rounded-xl bg-emerald-950/40 border border-emerald-800/40 flex items-start gap-2.5 text-xs text-emerald-300">
-              <ShieldCheck className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+            <div className="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 flex items-start gap-2.5 text-xs text-emerald-950">
+              <ShieldCheck className="w-5 h-5 text-emerald-700 shrink-0 mt-0.5" />
               <div>
-                <span className="font-bold">100% Escrow Protection:</span> The seller ({auction.seller.name}) will not receive payment until you inspect and accept the lot.
+                <span className="font-bold text-emerald-900">100% Escrow Protection:</span> The seller ({auction.seller.name}) will not receive payment until you inspect and accept the lot.
               </div>
             </div>
 
@@ -351,7 +351,7 @@ export const EscrowPaymentModal: React.FC<EscrowPaymentModalProps> = ({
             <button
               onClick={handlePay}
               disabled={isProcessing}
-              className="w-full py-4 rounded-xl bg-gradient-to-r from-emerald-600 via-emerald-500 to-amber-500 hover:from-emerald-500 hover:to-amber-400 text-slate-950 font-black text-sm uppercase tracking-wider shadow-xl shadow-emerald-950 transition-all transform active:scale-98 flex items-center justify-center gap-2"
+              className="w-full py-4 rounded-xl bg-gradient-to-r from-emerald-600 via-emerald-500 to-amber-500 hover:from-emerald-700 hover:to-amber-600 text-white font-black text-sm uppercase tracking-wider shadow-lg shadow-emerald-600/20 transition-all transform active:scale-98 flex items-center justify-center gap-2"
             >
               <Lock className="w-4 h-4" />
               <span>
@@ -362,39 +362,39 @@ export const EscrowPaymentModal: React.FC<EscrowPaymentModalProps> = ({
         ) : (
           /* Payment Success State */
           <div className="text-center py-4 space-y-5 animate-in fade-in zoom-in-95">
-            <div className="w-16 h-16 rounded-3xl bg-emerald-950 border border-emerald-500/50 text-emerald-400 flex items-center justify-center mx-auto shadow-xl shadow-emerald-950">
+            <div className="w-16 h-16 rounded-3xl bg-emerald-100 border border-emerald-300 text-emerald-700 flex items-center justify-center mx-auto shadow-md">
               <CheckCircle2 className="w-9 h-9" />
             </div>
 
             <div>
-              <span className="text-xs font-mono font-bold text-emerald-400 uppercase tracking-wider">
+              <span className="text-xs font-mono font-bold text-emerald-700 uppercase tracking-wider">
                 PAYMENT CONFIRMED • FUNDS SECURED IN ESCROW
               </span>
-              <h3 className="text-2xl font-serif font-bold text-white mt-1">
+              <h3 className="text-2xl font-serif font-bold text-slate-900 mt-1">
                 Escrow Deposit Received!
               </h3>
-              <p className="text-xs text-slate-400 mt-1 max-w-md mx-auto">
-                Your payment for <strong className="text-slate-200">{auction.title}</strong> has been secured in Neelami Escrow Bank Trust.
+              <p className="text-xs text-slate-500 mt-1 max-w-md mx-auto">
+                Your payment for <strong className="text-slate-800">{auction.title}</strong> has been secured in Neelami Escrow Bank Trust.
               </p>
             </div>
 
             {/* Receipt Summary */}
-            <div className="p-5 rounded-2xl bg-[#081020] border border-amber-500/20 text-left space-y-2 text-xs">
-              <div className="flex items-center justify-between pb-2 border-b border-slate-800">
-                <span className="text-slate-400">Transaction Reference:</span>
-                <span className="font-mono font-bold text-amber-400">{txId}</span>
+            <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 text-left space-y-2 text-xs">
+              <div className="flex items-center justify-between pb-2 border-b border-slate-200">
+                <span className="text-slate-500">Transaction Reference:</span>
+                <span className="font-mono font-bold text-amber-700">{txId}</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-slate-400">Payment Channel:</span>
-                <span className="font-bold text-slate-200 uppercase">{selectedMethod.replace('_', ' ')}</span>
+                <span className="text-slate-500">Payment Channel:</span>
+                <span className="font-bold text-slate-800 uppercase">{selectedMethod.replace('_', ' ')}</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-slate-400">Amount Deposited:</span>
-                <span className="font-mono font-black text-emerald-400 text-sm">{formatPrice(totalAmount)}</span>
+                <span className="text-slate-500">Amount Deposited:</span>
+                <span className="font-mono font-black text-emerald-700 text-sm">{formatPrice(totalAmount)}</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-slate-400">Logistics Escort:</span>
-                <span className="text-slate-200">{auction.shippingInfo.estimatedDays}</span>
+                <span className="text-slate-500">Logistics Escort:</span>
+                <span className="text-slate-800">{auction.shippingInfo.estimatedDays}</span>
               </div>
             </div>
 
@@ -403,14 +403,14 @@ export const EscrowPaymentModal: React.FC<EscrowPaymentModalProps> = ({
                 onClick={() => {
                   window.print();
                 }}
-                className="py-3 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 text-xs font-bold flex items-center justify-center gap-2"
+                className="py-3 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-800 text-xs font-bold flex items-center justify-center gap-2 transition-colors"
               >
                 <Printer className="w-4 h-4" />
                 <span>Print Bank Slip</span>
               </button>
               <button
                 onClick={onClose}
-                className="py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-black uppercase tracking-wider shadow-lg shadow-emerald-950"
+                className="py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-black uppercase tracking-wider shadow-md transition-colors"
               >
                 Done & Return
               </button>

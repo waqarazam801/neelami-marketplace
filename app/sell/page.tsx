@@ -105,22 +105,22 @@ export default function SellAuctionPage() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8 bg-white min-h-screen">
       {/* Top Header */}
       <div className="space-y-2">
-        <Link href="/" className="inline-flex items-center gap-1.5 text-xs text-slate-400 hover:text-emerald-400 mb-2">
+        <Link href="/" className="inline-flex items-center gap-1.5 text-xs text-slate-500 hover:text-emerald-700 mb-2 font-medium">
           <ArrowLeft className="w-3.5 h-3.5" /> Back to Auctions
         </Link>
-        <div className="flex items-center gap-2">
-          <span className="p-2 rounded-xl bg-emerald-950 text-emerald-400 border border-emerald-800/60">
+        <div className="flex items-center gap-3">
+          <span className="p-2.5 rounded-2xl bg-emerald-50 text-emerald-700 border border-emerald-200">
             <PlusCircle className="w-6 h-6" />
           </span>
           <div>
-            <h1 className="text-2xl sm:text-3xl font-black text-white">
+            <h1 className="text-2xl sm:text-3xl font-black text-slate-900">
               List an Item on Neelami.com
             </h1>
-            <p className="text-xs text-slate-400">
-              Auction your luxury goods, electronics, art, and motors to verified bidders across Pakistan.
+            <p className="text-xs text-slate-500">
+              Auction your luxury goods, electronics, art, and motors to verified bidders across Pakistan and worldwide.
             </p>
           </div>
         </div>
@@ -129,15 +129,15 @@ export default function SellAuctionPage() {
       {/* Main Listing Form */}
       <form onSubmit={handleSubmit} className="space-y-8">
         {/* Section 1: Item Basic Details */}
-        <div className="p-6 sm:p-8 rounded-3xl bg-slate-900/80 border border-slate-800 space-y-6">
-          <h2 className="text-lg font-bold text-slate-100 flex items-center gap-2">
+        <div className="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-6">
+          <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
             <span className="w-6 h-6 rounded-full bg-emerald-600 text-white text-xs flex items-center justify-center font-mono">1</span>
             Item Identification & Category
           </h2>
 
           <div className="space-y-4">
             <div>
-              <label className="text-xs font-semibold text-slate-300 block mb-1">
+              <label className="text-xs font-semibold text-slate-700 block mb-1">
                 Item Title *
               </label>
               <input
@@ -146,19 +146,19 @@ export default function SellAuctionPage() {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="e.g. 1972 Vintage Rolex Datejust 36mm Solid Gold Dial"
-                className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500 font-medium"
+                className="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-emerald-600 font-medium"
               />
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="text-xs font-semibold text-slate-300 block mb-1">
+                <label className="text-xs font-semibold text-slate-700 block mb-1">
                   Category *
                 </label>
                 <select
                   value={category}
                   onChange={(e) => setCategory(e.target.value as Category)}
-                  className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500 font-medium"
+                  className="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-sm text-slate-900 focus:outline-none focus:border-emerald-600 font-medium"
                 >
                   <option value="Luxury Watches">Luxury Watches</option>
                   <option value="Electronics & Gadgets">Electronics & Gadgets</option>
@@ -171,13 +171,13 @@ export default function SellAuctionPage() {
               </div>
 
               <div>
-                <label className="text-xs font-semibold text-slate-300 block mb-1">
+                <label className="text-xs font-semibold text-slate-700 block mb-1">
                   Condition *
                 </label>
                 <select
                   value={condition}
                   onChange={(e) => setCondition(e.target.value as AuctionItem['condition'])}
-                  className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500 font-medium"
+                  className="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-sm text-slate-900 focus:outline-none focus:border-emerald-600 font-medium"
                 >
                   <option value="Brand New">Brand New (Factory Sealed)</option>
                   <option value="Like New">Like New (Mint with Box)</option>
@@ -189,7 +189,7 @@ export default function SellAuctionPage() {
             </div>
 
             <div>
-              <label className="text-xs font-semibold text-slate-300 block mb-1">
+              <label className="text-xs font-semibold text-slate-700 block mb-1">
                 Detailed Description *
               </label>
               <textarea
@@ -198,22 +198,22 @@ export default function SellAuctionPage() {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="Describe provenance, history, box & papers, service records, flaws, and notable attributes..."
-                className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500 font-medium"
+                className="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-emerald-600 font-medium"
               />
             </div>
           </div>
         </div>
 
         {/* Section 2: Photos & Media */}
-        <div className="p-6 sm:p-8 rounded-3xl bg-slate-900/80 border border-slate-800 space-y-6">
-          <h2 className="text-lg font-bold text-slate-100 flex items-center gap-2">
+        <div className="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-6">
+          <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
             <span className="w-6 h-6 rounded-full bg-emerald-600 text-white text-xs flex items-center justify-center font-mono">2</span>
             Photos & Gallery
           </h2>
 
           <div className="space-y-4">
             <div>
-              <label className="text-xs font-semibold text-slate-300 block mb-1">
+              <label className="text-xs font-semibold text-slate-700 block mb-1">
                 Primary Image URL
               </label>
               <input
@@ -221,13 +221,13 @@ export default function SellAuctionPage() {
                 value={imageUrl}
                 onChange={(e) => setImageUrl(e.target.value)}
                 placeholder="https://..."
-                className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500 font-mono"
+                className="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-emerald-600 font-mono"
               />
             </div>
 
             {/* Quick Presets */}
             <div>
-              <span className="text-xs text-slate-400 block mb-2">Or select from demo item presets:</span>
+              <span className="text-xs text-slate-500 block mb-2 font-medium">Or select from demo item presets:</span>
               <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
                 {PRESET_SAMPLE_IMAGES.map((preset) => (
                   <button
@@ -236,12 +236,12 @@ export default function SellAuctionPage() {
                     onClick={() => setImageUrl(preset.url)}
                     className={`relative rounded-xl overflow-hidden border-2 aspect-square p-0.5 transition-all ${
                       imageUrl === preset.url
-                        ? 'border-emerald-500 scale-105 shadow-md shadow-emerald-950'
-                        : 'border-slate-800 opacity-60 hover:opacity-100'
+                        ? 'border-emerald-600 scale-105 shadow-md'
+                        : 'border-slate-200 opacity-70 hover:opacity-100'
                     }`}
                   >
                     <Image src={preset.url} alt={preset.label} fill className="object-cover" />
-                    <span className="absolute bottom-1 left-1 right-1 bg-black/80 text-[10px] text-slate-200 text-center rounded py-0.5 truncate font-semibold">
+                    <span className="absolute bottom-1 left-1 right-1 bg-slate-900/80 text-[10px] text-white text-center rounded py-0.5 truncate font-semibold">
                       {preset.label}
                     </span>
                   </button>
@@ -252,12 +252,12 @@ export default function SellAuctionPage() {
             {/* Preview */}
             {imageUrl && (
               <div className="pt-2 flex items-center gap-4">
-                <div className="relative w-28 h-20 rounded-xl overflow-hidden bg-slate-950 border border-slate-700">
+                <div className="relative w-28 h-20 rounded-xl overflow-hidden bg-slate-50 border border-slate-200">
                   <Image src={imageUrl} alt="Preview" fill className="object-cover" />
                 </div>
-                <div className="text-xs text-slate-400">
-                  <p className="font-semibold text-emerald-400">Image Loaded Successfully</p>
-                  <p className="text-[11px] text-slate-500">Will be featured on lot preview cards and live auction room.</p>
+                <div className="text-xs text-slate-500">
+                  <p className="font-semibold text-emerald-700">Image Loaded Successfully</p>
+                  <p className="text-[11px] text-slate-400">Will be featured on lot preview cards and live auction room.</p>
                 </div>
               </div>
             )}
@@ -265,20 +265,20 @@ export default function SellAuctionPage() {
         </div>
 
         {/* Section 3: Bidding & Pricing in PKR */}
-        <div className="p-6 sm:p-8 rounded-3xl bg-slate-900/80 border border-slate-800 space-y-6">
+        <div className="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-6">
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-bold text-slate-100 flex items-center gap-2">
+            <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
               <span className="w-6 h-6 rounded-full bg-emerald-600 text-white text-xs flex items-center justify-center font-mono">3</span>
               Auction Pricing & Global Conversion (Base PKR ₨)
             </h2>
-            <span className="text-xs font-mono font-bold text-amber-400 bg-amber-950/60 px-2.5 py-1 rounded-full border border-amber-800/40">
-              Active Global Currency: {currency}
+            <span className="text-xs font-mono font-bold text-amber-800 bg-amber-50 px-2.5 py-1 rounded-full border border-amber-200">
+              Active Currency: {currency}
             </span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="text-xs font-semibold text-slate-300 block mb-1">
+              <label className="text-xs font-semibold text-slate-700 block mb-1">
                 Starting Bid (Base PKR ₨) *
               </label>
               <input
@@ -288,13 +288,13 @@ export default function SellAuctionPage() {
                 step={1000}
                 value={startingBid}
                 onChange={(e) => setStartingBid(Number(e.target.value))}
-                className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500 font-mono font-bold"
+                className="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-sm text-slate-900 focus:outline-none focus:border-emerald-600 font-mono font-bold"
               />
-              <span className="text-[11px] text-slate-400 mt-1 block">Worldwide Display: {formatPrice(startingBid)}</span>
+              <span className="text-[11px] text-slate-500 mt-1 block">Worldwide Display: {formatPrice(startingBid)}</span>
             </div>
 
             <div>
-              <label className="text-xs font-semibold text-slate-300 block mb-1">
+              <label className="text-xs font-semibold text-slate-700 block mb-1">
                 Reserve Price (PKR ₨) *
               </label>
               <input
@@ -304,13 +304,13 @@ export default function SellAuctionPage() {
                 step={1000}
                 value={reservePrice}
                 onChange={(e) => setReservePrice(Number(e.target.value))}
-                className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500 font-mono font-bold"
+                className="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-sm text-slate-900 focus:outline-none focus:border-emerald-600 font-mono font-bold"
               />
-              <span className="text-[11px] text-slate-400 mt-1 block">Minimum price you are willing to sell for.</span>
+              <span className="text-[11px] text-slate-500 mt-1 block">Minimum price you are willing to sell for.</span>
             </div>
 
             <div>
-              <label className="text-xs font-semibold text-slate-300 block mb-1">
+              <label className="text-xs font-semibold text-slate-700 block mb-1">
                 Minimum Bid Increment (PKR ₨) *
               </label>
               <input
@@ -320,12 +320,12 @@ export default function SellAuctionPage() {
                 step={500}
                 value={minIncrement}
                 onChange={(e) => setMinIncrement(Number(e.target.value))}
-                className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500 font-mono font-bold"
+                className="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-sm text-slate-900 focus:outline-none focus:border-emerald-600 font-mono font-bold"
               />
             </div>
 
             <div>
-              <label className="text-xs font-semibold text-slate-300 block mb-1">
+              <label className="text-xs font-semibold text-slate-700 block mb-1">
                 Optional "Buy It Now" Price (PKR ₨)
               </label>
               <input
@@ -335,18 +335,18 @@ export default function SellAuctionPage() {
                 value={buyNowPrice}
                 onChange={(e) => setBuyNowPrice(e.target.value ? Number(e.target.value) : '')}
                 placeholder="Leave blank if auction only"
-                className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500 font-mono font-bold"
+                className="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-emerald-600 font-mono font-bold"
               />
             </div>
 
             <div className="sm:col-span-2">
-              <label className="text-xs font-semibold text-slate-300 block mb-1">
+              <label className="text-xs font-semibold text-slate-700 block mb-1">
                 Auction Duration
               </label>
               <select
                 value={durationHours}
                 onChange={(e) => setDurationHours(Number(e.target.value))}
-                className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500 font-medium"
+                className="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-sm text-slate-900 focus:outline-none focus:border-emerald-600 font-medium"
               >
                 <option value={0.25}>15 Minutes (Instant Test Run)</option>
                 <option value={1}>1 Hour (Fast-Paced Neelami)</option>
@@ -360,21 +360,21 @@ export default function SellAuctionPage() {
         </div>
 
         {/* Section 4: Specifications & Location */}
-        <div className="p-6 sm:p-8 rounded-3xl bg-slate-900/80 border border-slate-800 space-y-6">
-          <h2 className="text-lg font-bold text-slate-100 flex items-center gap-2">
+        <div className="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-6">
+          <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
             <span className="w-6 h-6 rounded-full bg-emerald-600 text-white text-xs flex items-center justify-center font-mono">4</span>
             Location & Logistics in Pakistan
           </h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="text-xs font-semibold text-slate-300 block mb-1">
+              <label className="text-xs font-semibold text-slate-700 block mb-1">
                 Item Location / City *
               </label>
               <select
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
-                className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500 font-medium"
+                className="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-sm text-slate-900 focus:outline-none focus:border-emerald-600 font-medium"
               >
                 <option value="Lahore">Lahore</option>
                 <option value="Karachi">Karachi</option>
@@ -389,7 +389,7 @@ export default function SellAuctionPage() {
             </div>
 
             <div>
-              <label className="text-xs font-semibold text-slate-300 block mb-1">
+              <label className="text-xs font-semibold text-slate-700 block mb-1">
                 Courier & Escort Shipping (PKR ₨)
               </label>
               <input
@@ -398,41 +398,41 @@ export default function SellAuctionPage() {
                 step={500}
                 value={shippingCost}
                 onChange={(e) => setShippingCost(Number(e.target.value))}
-                className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500 font-mono font-bold"
+                className="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-sm text-slate-900 focus:outline-none focus:border-emerald-600 font-mono font-bold"
               />
             </div>
 
             <div>
-              <label className="text-xs font-semibold text-slate-300 block mb-1">
+              <label className="text-xs font-semibold text-slate-700 block mb-1">
                 Brand / Maker / Artist
               </label>
               <input
                 type="text"
                 value={specBrand}
                 onChange={(e) => setSpecBrand(e.target.value)}
-                className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500"
+                className="w-full bg-white border border-slate-300 rounded-xl px-4 py-2.5 text-sm text-slate-900 focus:outline-none focus:border-emerald-600 font-medium"
               />
             </div>
 
             <div>
-              <label className="text-xs font-semibold text-slate-300 block mb-1">
+              <label className="text-xs font-semibold text-slate-700 block mb-1">
                 Model / Reference
               </label>
               <input
                 type="text"
                 value={specModel}
                 onChange={(e) => setSpecModel(e.target.value)}
-                className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500"
+                className="w-full bg-white border border-slate-300 rounded-xl px-4 py-2.5 text-sm text-slate-900 focus:outline-none focus:border-emerald-600 font-medium"
               />
             </div>
           </div>
         </div>
 
         {/* Consignor Guarantee Notice */}
-        <div className="p-4 rounded-2xl bg-emerald-950/40 border border-emerald-800/40 flex items-start gap-3 text-xs text-emerald-300">
-          <ShieldCheck className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+        <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-start gap-3 text-xs text-emerald-950">
+          <ShieldCheck className="w-5 h-5 text-emerald-700 shrink-0 mt-0.5" />
           <div>
-            <span className="font-bold">Neelami Seller Assurance:</span> All bids are legally binding contracts under Pakistan e-commerce laws. Winning payments are secured in escrow prior to dispatch.
+            <span className="font-bold text-emerald-900">Neelami Seller Assurance:</span> All bids are legally binding contracts under Pakistan e-commerce laws. Winning payments are secured in escrow prior to dispatch.
           </div>
         </div>
 
@@ -441,7 +441,7 @@ export default function SellAuctionPage() {
           <button
             type="button"
             onClick={() => router.back()}
-            className="px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold"
+            className="px-6 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold border border-slate-200 transition-colors"
           >
             Cancel
           </button>
@@ -449,7 +449,7 @@ export default function SellAuctionPage() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="px-8 py-3.5 rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white font-black text-sm shadow-xl shadow-emerald-950/60 transition-transform active:scale-95 flex items-center gap-2"
+            className="px-8 py-3.5 rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-700 hover:to-emerald-600 text-white font-black text-sm shadow-xl shadow-emerald-700/20 transition-transform active:scale-95 flex items-center gap-2"
           >
             <Gavel className="w-4 h-4" />
             <span>{isSubmitting ? 'Publishing Lot...' : 'Publish Lot for Bidding'}</span>

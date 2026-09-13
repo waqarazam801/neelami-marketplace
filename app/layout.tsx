@@ -16,8 +16,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark">
-      <body className="min-h-screen flex flex-col bg-[#050A14] text-slate-100 font-sans antialiased selection:bg-amber-400 selection:text-slate-950">
+    <html lang="en">
+      <body className="min-h-screen flex flex-col bg-white text-slate-900 font-sans antialiased selection:bg-amber-400 selection:text-slate-950">
         <AuctionProvider>
           <Navbar />
           <main className="flex-1">{children}</main>

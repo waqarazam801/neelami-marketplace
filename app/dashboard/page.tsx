@@ -72,67 +72,67 @@ function DashboardContent() {
   }, [auctions, watchlist]);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 bg-white min-h-screen">
       {/* Profile Overview Card */}
-      <div className="rounded-3xl bg-gradient-to-r from-slate-900 via-slate-900 to-slate-950 border border-slate-800 p-6 sm:p-8 shadow-xl">
+      <div className="rounded-3xl bg-white border border-slate-200 p-6 sm:p-8 shadow-md">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           <div className="flex items-center gap-4">
-            <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden border-2 border-emerald-500/60 shadow-lg shadow-emerald-950">
+            <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden border-2 border-emerald-600 shadow-md">
               <Image src={currentUser.avatar} alt={currentUser.name} fill className="object-cover" />
             </div>
 
             <div>
               <div className="flex items-center gap-2">
-                <h1 className="text-xl sm:text-2xl font-black text-white">{currentUser.name}</h1>
-                <span className="flex items-center gap-0.5 text-xs text-emerald-400 bg-emerald-950/80 px-2 py-0.5 rounded-full border border-emerald-800/60">
-                  <ShieldCheck className="w-3.5 h-3.5" /> Verified
+                <h1 className="text-xl sm:text-2xl font-black text-slate-900">{currentUser.name}</h1>
+                <span className="flex items-center gap-0.5 text-xs text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200 font-semibold">
+                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" /> Verified
                 </span>
               </div>
-              <p className="text-xs text-slate-400 mt-0.5 flex items-center gap-2">
+              <p className="text-xs text-slate-500 mt-0.5 flex items-center gap-2">
                 <span>{currentUser.email}</span>
                 <span>•</span>
                 <span className="flex items-center gap-0.5"><MapPin className="w-3 h-3 text-slate-400" /> {currentUser.city}</span>
               </p>
               <div className="flex items-center gap-2 mt-2">
-                <span className="text-[11px] font-mono uppercase bg-slate-800 text-amber-400 font-bold px-2 py-0.5 rounded">
+                <span className="text-[11px] font-mono uppercase bg-amber-50 text-amber-800 border border-amber-200 font-bold px-2 py-0.5 rounded">
                   {currentUser.role} Account
                 </span>
-                <span className="text-xs text-slate-400">Member since {currentUser.joinedDate}</span>
+                <span className="text-xs text-slate-500">Member since {currentUser.joinedDate}</span>
               </div>
             </div>
           </div>
 
           {/* Wallet Balance Card */}
-          <div className="w-full sm:w-auto p-4 rounded-2xl bg-slate-950 border border-slate-800/90 flex items-center gap-4">
-            <div className="p-3 rounded-xl bg-emerald-950/80 text-emerald-400 border border-emerald-800/40">
+          <div className="w-full sm:w-auto p-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-center gap-4 shadow-sm">
+            <div className="p-3 rounded-xl bg-emerald-100 text-emerald-800 border border-emerald-200">
               <Wallet className="w-6 h-6" />
             </div>
             <div>
-              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">
                 Escrow Wallet Balance ({currency})
               </span>
-              <div className="text-xl sm:text-2xl font-black text-amber-400 font-mono mt-0.5">
+              <div className="text-xl sm:text-2xl font-black text-amber-700 font-mono mt-0.5">
                 {formatPrice(currentUser.walletBalance)}
               </div>
-              <span className="text-[10px] text-emerald-400">Verified for Bidding</span>
+              <span className="text-[10px] text-emerald-700 font-semibold">Verified for Bidding</span>
             </div>
           </div>
         </div>
       </div>
 
       {/* Tabs Navigation */}
-      <div className="flex items-center gap-2 border-b border-slate-800 overflow-x-auto no-scrollbar pb-1">
+      <div className="flex items-center gap-2 border-b border-slate-200 overflow-x-auto no-scrollbar pb-1">
         <button
           onClick={() => setActiveTab('bids')}
           className={`flex items-center gap-2 px-5 py-3 rounded-xl text-xs font-bold transition-all shrink-0 ${
             activeTab === 'bids'
-              ? 'bg-emerald-600 text-white shadow-md shadow-emerald-950/50'
-              : 'text-slate-400 hover:text-white hover:bg-slate-900'
+              ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/20'
+              : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
           }`}
         >
           <Gavel className="w-4 h-4" />
           <span>My Active Bids</span>
-          <span className="px-1.5 py-0.5 rounded-full bg-black/30 font-mono text-[10px]">
+          <span className="px-1.5 py-0.5 rounded-full bg-black/10 font-mono text-[10px]">
             {myBidsAuctions.length}
           </span>
         </button>
@@ -141,13 +141,13 @@ function DashboardContent() {
           onClick={() => setActiveTab('won')}
           className={`flex items-center gap-2 px-5 py-3 rounded-xl text-xs font-bold transition-all shrink-0 ${
             activeTab === 'won'
-              ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-950/50'
-              : 'text-slate-400 hover:text-white hover:bg-slate-900'
+              ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/20'
+              : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
           }`}
         >
           <Trophy className="w-4 h-4" />
           <span>Won Lots</span>
-          <span className="px-1.5 py-0.5 rounded-full bg-black/30 font-mono text-[10px]">
+          <span className="px-1.5 py-0.5 rounded-full bg-black/10 font-mono text-[10px]">
             {wonAuctions.length}
           </span>
         </button>
@@ -156,13 +156,13 @@ function DashboardContent() {
           onClick={() => setActiveTab('listings')}
           className={`flex items-center gap-2 px-5 py-3 rounded-xl text-xs font-bold transition-all shrink-0 ${
             activeTab === 'listings'
-              ? 'bg-emerald-600 text-white shadow-md shadow-emerald-950/50'
-              : 'text-slate-400 hover:text-white hover:bg-slate-900'
+              ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/20'
+              : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
           }`}
         >
           <Package className="w-4 h-4" />
           <span>My Listed Auctions</span>
-          <span className="px-1.5 py-0.5 rounded-full bg-black/30 font-mono text-[10px]">
+          <span className="px-1.5 py-0.5 rounded-full bg-black/10 font-mono text-[10px]">
             {myListings.length}
           </span>
         </button>
@@ -171,13 +171,13 @@ function DashboardContent() {
           onClick={() => setActiveTab('watchlist')}
           className={`flex items-center gap-2 px-5 py-3 rounded-xl text-xs font-bold transition-all shrink-0 ${
             activeTab === 'watchlist'
-              ? 'bg-red-600 text-white shadow-md shadow-red-950/50'
-              : 'text-slate-400 hover:text-white hover:bg-slate-900'
+              ? 'bg-rose-600 text-white shadow-md shadow-rose-600/20'
+              : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
           }`}
         >
           <Heart className="w-4 h-4" />
           <span>Watchlist</span>
-          <span className="px-1.5 py-0.5 rounded-full bg-black/30 font-mono text-[10px]">
+          <span className="px-1.5 py-0.5 rounded-full bg-black/10 font-mono text-[10px]">
             {watchedAuctions.length}
           </span>
         </button>
@@ -187,13 +187,13 @@ function DashboardContent() {
       {activeTab === 'bids' && (
         <div className="space-y-4">
           {myBidsAuctions.length === 0 ? (
-            <div className="text-center py-16 px-4 bg-slate-900/40 rounded-3xl border border-dashed border-slate-800 space-y-3">
-              <Gavel className="w-12 h-12 text-slate-600 mx-auto" />
-              <h3 className="text-base font-bold text-slate-200">No active bids yet</h3>
-              <p className="text-xs text-slate-400">Discover items ending soon and place your first competitive bid.</p>
+            <div className="text-center py-16 px-4 bg-slate-50 rounded-3xl border border-dashed border-slate-200 space-y-3">
+              <Gavel className="w-12 h-12 text-slate-400 mx-auto" />
+              <h3 className="text-base font-bold text-slate-800">No active bids yet</h3>
+              <p className="text-xs text-slate-500">Discover items ending soon and place your first competitive bid.</p>
               <Link
                 href="/"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-600 text-white text-xs font-semibold"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-600 text-white text-xs font-semibold hover:bg-emerald-700"
               >
                 Browse Auctions
               </Link>
@@ -207,24 +207,24 @@ function DashboardContent() {
                 return (
                   <div
                     key={auction.id}
-                    className="p-5 rounded-2xl bg-slate-900 border border-slate-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
+                    className="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
                   >
                     <div className="flex items-center gap-4">
-                      <div className="relative w-20 h-16 rounded-xl overflow-hidden bg-slate-950 shrink-0 border border-slate-800">
+                      <div className="relative w-20 h-16 rounded-xl overflow-hidden bg-slate-100 shrink-0 border border-slate-200">
                         <Image src={auction.images[0]} alt={auction.title} fill className="object-cover" />
                       </div>
                       <div>
                         <div className="flex items-center gap-2">
-                          <span className="text-xs text-emerald-400 font-semibold">{auction.category}</span>
-                          <span className="text-xs text-slate-500 font-mono">LOT #{auction.id}</span>
+                          <span className="text-xs text-emerald-700 font-semibold">{auction.category}</span>
+                          <span className="text-xs text-slate-400 font-mono">LOT #{auction.id}</span>
                         </div>
-                        <Link href={`/auction/${auction.id}`} className="font-bold text-slate-100 text-sm hover:text-emerald-400 transition-colors line-clamp-1">
+                        <Link href={`/auction/${auction.id}`} className="font-bold text-slate-900 text-sm hover:text-emerald-700 transition-colors line-clamp-1">
                           {auction.title}
                         </Link>
                         <div className="flex items-center gap-3 text-xs mt-1">
-                          <span className="text-slate-400">Your Bid: <strong className="font-mono text-slate-200">{formatPrice(userHighestBid)}</strong></span>
+                          <span className="text-slate-500">Your Bid: <strong className="font-mono text-slate-900">{formatPrice(userHighestBid)}</strong></span>
                           <span>•</span>
-                          <span className="text-slate-400">Current Hammer: <strong className="font-mono text-amber-400">{formatPrice(auction.currentBid)}</strong></span>
+                          <span className="text-slate-500">Current Hammer: <strong className="font-mono text-amber-700">{formatPrice(auction.currentBid)}</strong></span>
                         </div>
                       </div>
                     </div>
@@ -232,12 +232,12 @@ function DashboardContent() {
                     <div className="flex items-center gap-4 w-full sm:w-auto justify-between sm:justify-end">
                       <div>
                         {isWinning ? (
-                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-950 text-emerald-300 font-bold text-xs border border-emerald-800">
-                            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 font-bold text-xs border border-emerald-200">
+                            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
                             Highest Bidder
                           </span>
                         ) : (
-                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-950 text-amber-400 font-bold text-xs border border-amber-800">
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 text-amber-800 font-bold text-xs border border-amber-200">
                             <AlertTriangle className="w-3.5 h-3.5" />
                             Outbid!
                           </span>
@@ -250,7 +250,7 @@ function DashboardContent() {
 
                       <Link
                         href={`/auction/${auction.id}`}
-                        className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-emerald-600 text-white font-bold text-xs transition-colors"
+                        className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-emerald-600 hover:text-white text-slate-800 font-bold text-xs border border-slate-200 transition-colors"
                       >
                         {isWinning ? 'View Lot' : 'Raise Bid'}
                       </Link>
@@ -267,40 +267,40 @@ function DashboardContent() {
       {activeTab === 'won' && (
         <div className="space-y-4">
           {/* Company Payment Rule Banner */}
-          <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-start gap-3 text-xs text-amber-200">
-            <ShieldCheck className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
+          <div className="p-4 rounded-2xl bg-amber-50 border border-amber-200 flex items-start gap-3 text-xs text-amber-950">
+            <ShieldCheck className="w-5 h-5 text-amber-700 shrink-0 mt-0.5" />
             <div>
-              <span className="font-bold text-amber-300">Mandatory Buyer Protection:</span> Winning payments must be transferred strictly to <strong>Neelami.com Official Company Accounts</strong>, NEVER to the seller personally. The company holds your funds in trust and only releases them to the seller after you receive and sign off on the delivery inspection.
+              <span className="font-bold text-amber-800">Mandatory Buyer Protection:</span> Winning payments must be transferred strictly to <strong>Neelami.com Official Company Accounts</strong>, NEVER to the seller personally. The company holds your funds in trust and only releases them to the seller after you receive and sign off on the delivery inspection.
             </div>
           </div>
 
           {wonAuctions.length === 0 ? (
-            <div className="text-center py-16 px-4 bg-slate-900/40 rounded-3xl border border-dashed border-slate-800 space-y-3">
-              <Trophy className="w-12 h-12 text-slate-600 mx-auto" />
-              <h3 className="text-base font-bold text-slate-200">No won auctions yet</h3>
-              <p className="text-xs text-slate-400">Place bids on ending soon lots to secure your winning bid!</p>
+            <div className="text-center py-16 px-4 bg-slate-50 rounded-3xl border border-dashed border-slate-200 space-y-3">
+              <Trophy className="w-12 h-12 text-slate-400 mx-auto" />
+              <h3 className="text-base font-bold text-slate-800">No won auctions yet</h3>
+              <p className="text-xs text-slate-500">Place bids on ending soon lots to secure your winning bid!</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 gap-4">
               {wonAuctions.map((auction) => (
                 <div
                   key={auction.id}
-                  className="p-5 rounded-2xl bg-gradient-to-r from-slate-900 via-slate-900 to-emerald-950/40 border border-emerald-800/60 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
+                  className="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="relative w-20 h-16 rounded-xl overflow-hidden bg-slate-950 shrink-0 border border-emerald-500/40">
+                    <div className="relative w-20 h-16 rounded-xl overflow-hidden bg-slate-100 shrink-0 border border-slate-200">
                       <Image src={auction.images[0]} alt={auction.title} fill className="object-cover" />
                     </div>
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="text-xs text-amber-400 font-bold flex items-center gap-1">
-                          <Trophy className="w-3.5 h-3.5" /> AUCTION WON
+                        <span className="text-xs text-amber-800 font-bold flex items-center gap-1 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">
+                          <Trophy className="w-3.5 h-3.5 text-amber-600" /> AUCTION WON
                         </span>
-                        <span className="text-xs text-slate-500 font-mono">LOT #{auction.id}</span>
+                        <span className="text-xs text-slate-400 font-mono">LOT #{auction.id}</span>
                       </div>
-                      <h4 className="font-bold text-white text-sm mt-0.5">{auction.title}</h4>
-                      <p className="text-xs text-slate-400">
-                        Winning Hammer Price: <span className="font-mono font-bold text-amber-400">{formatPrice(auction.currentBid)}</span> • Seller: {auction.seller.name}
+                      <h4 className="font-bold text-slate-900 text-sm mt-0.5">{auction.title}</h4>
+                      <p className="text-xs text-slate-500">
+                        Winning Hammer Price: <span className="font-mono font-bold text-amber-700">{formatPrice(auction.currentBid)}</span> • Seller: {auction.seller.name}
                       </p>
                     </div>
                   </div>
@@ -308,7 +308,7 @@ function DashboardContent() {
                   <div className="flex items-center gap-3">
                     <button
                       onClick={() => alert(`Certificate of Ownership generated for LOT #${auction.id}. Consignment slip dispatched.`)}
-                      className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs transition-colors"
+                      className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold text-xs border border-slate-200 transition-colors"
                     >
                       Download Invoice
                     </button>
@@ -317,7 +317,7 @@ function DashboardContent() {
                         setPayingAuction(auction);
                         setIsPaymentModalOpen(true);
                       }}
-                      className="px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-amber-500 hover:from-emerald-500 hover:to-amber-400 text-slate-950 font-black text-xs uppercase tracking-wider shadow-lg shadow-emerald-950/40 transition-colors"
+                      className="px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-amber-500 hover:from-emerald-700 hover:to-amber-600 text-white font-black text-xs uppercase tracking-wider shadow-md transition-colors"
                     >
                       Escrow Settlement
                     </button>
@@ -333,23 +333,23 @@ function DashboardContent() {
       {activeTab === 'listings' && (
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <h3 className="text-sm font-bold text-slate-200">Consigned Lots by {currentUser.name}</h3>
+            <h3 className="text-sm font-bold text-slate-900">Consigned Lots by {currentUser.name}</h3>
             <Link
               href="/sell"
-              className="px-4 py-2 rounded-xl bg-emerald-600 text-white font-bold text-xs shadow-md shadow-emerald-950/40 hover:bg-emerald-500 transition-colors"
+              className="px-4 py-2 rounded-xl bg-emerald-600 text-white font-bold text-xs shadow-md shadow-emerald-600/20 hover:bg-emerald-700 transition-colors"
             >
               + List Another Item
             </Link>
           </div>
 
           {myListings.length === 0 ? (
-            <div className="text-center py-16 px-4 bg-slate-900/40 rounded-3xl border border-dashed border-slate-800 space-y-3">
-              <Package className="w-12 h-12 text-slate-600 mx-auto" />
-              <h3 className="text-base font-bold text-slate-200">No active listings for this user</h3>
-              <p className="text-xs text-slate-400">List an item or switch to Fatima Noor (Seller) to view seller lots.</p>
+            <div className="text-center py-16 px-4 bg-slate-50 rounded-3xl border border-dashed border-slate-200 space-y-3">
+              <Package className="w-12 h-12 text-slate-400 mx-auto" />
+              <h3 className="text-base font-bold text-slate-800">No active listings for this user</h3>
+              <p className="text-xs text-slate-500">List an item or switch to Fatima Noor (Seller) to view seller lots.</p>
               <Link
                 href="/sell"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-600 text-white text-xs font-semibold"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-600 text-white text-xs font-semibold hover:bg-emerald-700"
               >
                 Create Listing
               </Link>
@@ -359,17 +359,17 @@ function DashboardContent() {
               {myListings.map((auction) => (
                 <div
                   key={auction.id}
-                  className="p-5 rounded-2xl bg-slate-900 border border-slate-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
+                  className="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="relative w-20 h-16 rounded-xl overflow-hidden bg-slate-950 shrink-0 border border-slate-800">
+                    <div className="relative w-20 h-16 rounded-xl overflow-hidden bg-slate-100 shrink-0 border border-slate-200">
                       <Image src={auction.images[0]} alt={auction.title} fill className="object-cover" />
                     </div>
                     <div>
-                      <span className="text-xs text-emerald-400 font-semibold">{auction.category}</span>
-                      <h4 className="font-bold text-white text-sm">{auction.title}</h4>
-                      <div className="flex items-center gap-3 text-xs text-slate-400 mt-1">
-                        <span>Current High: <strong className="font-mono text-amber-400">{formatPrice(auction.currentBid)}</strong></span>
+                      <span className="text-xs text-emerald-700 font-semibold">{auction.category}</span>
+                      <h4 className="font-bold text-slate-900 text-sm">{auction.title}</h4>
+                      <div className="flex items-center gap-3 text-xs text-slate-500 mt-1">
+                        <span>Current High: <strong className="font-mono text-amber-700">{formatPrice(auction.currentBid)}</strong></span>
                         <span>•</span>
                         <span>{auction.bidsCount} Bids Placed</span>
                         <span>•</span>
@@ -382,7 +382,7 @@ function DashboardContent() {
                     <CountdownTimer endTime={auction.endTime} compact />
                     <Link
                       href={`/auction/${auction.id}`}
-                      className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs"
+                      className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs border border-slate-200"
                     >
                       Manage Lot
                     </Link>
@@ -398,34 +398,34 @@ function DashboardContent() {
       {activeTab === 'watchlist' && (
         <div className="space-y-4">
           {watchedAuctions.length === 0 ? (
-            <div className="text-center py-16 px-4 bg-slate-900/40 rounded-3xl border border-dashed border-slate-800 space-y-3">
-              <Heart className="w-12 h-12 text-slate-600 mx-auto" />
-              <h3 className="text-base font-bold text-slate-200">Your Watchlist is empty</h3>
-              <p className="text-xs text-slate-400">Click the heart icon on any auction lot to track its countdown and bidding wars.</p>
+            <div className="text-center py-16 px-4 bg-slate-50 rounded-3xl border border-dashed border-slate-200 space-y-3">
+              <Heart className="w-12 h-12 text-slate-400 mx-auto" />
+              <h3 className="text-base font-bold text-slate-800">Your Watchlist is empty</h3>
+              <p className="text-xs text-slate-500">Click the heart icon on any auction lot to track its countdown and bidding wars.</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {watchedAuctions.map((auction) => (
                 <div
                   key={auction.id}
-                  className="p-4 rounded-2xl bg-slate-900 border border-slate-800 flex flex-col justify-between space-y-4"
+                  className="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between space-y-4"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="relative w-16 h-16 rounded-xl overflow-hidden bg-slate-950 shrink-0">
+                    <div className="relative w-16 h-16 rounded-xl overflow-hidden bg-slate-100 shrink-0 border border-slate-200">
                       <Image src={auction.images[0]} alt={auction.title} fill className="object-cover" />
                     </div>
                     <div className="min-w-0 flex-1">
-                      <span className="text-[10px] text-emerald-400 font-semibold uppercase">{auction.category}</span>
-                      <h4 className="font-bold text-slate-100 text-xs line-clamp-1">{auction.title}</h4>
-                      <p className="text-xs font-mono font-bold text-amber-400 mt-1">{formatPrice(auction.currentBid)}</p>
+                      <span className="text-[10px] text-emerald-700 font-semibold uppercase">{auction.category}</span>
+                      <h4 className="font-bold text-slate-900 text-xs line-clamp-1">{auction.title}</h4>
+                      <p className="text-xs font-mono font-bold text-amber-700 mt-1">{formatPrice(auction.currentBid)}</p>
                     </div>
                   </div>
 
-                  <div className="pt-2 border-t border-slate-800 flex items-center justify-between">
+                  <div className="pt-2 border-t border-slate-100 flex items-center justify-between">
                     <CountdownTimer endTime={auction.endTime} compact />
                     <Link
                       href={`/auction/${auction.id}`}
-                      className="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs"
+                      className="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs"
                     >
                       Bid Now
                     </Link>

@@ -5,8 +5,8 @@
 @tailwind utilities;
 
 :root {
-  --background: #050a14;
-  --foreground: #f8fafc;
+  --background: #ffffff;
+  --foreground: #0f172a;
 }
 
 body {
@@ -15,28 +15,28 @@ body {
   overflow-x: hidden;
 }
 
-/* Luxury gold gradients */
+/* Luxury gold gradients for white background */
 .gold-gradient-text {
-  background: linear-gradient(135deg, #FFF6D3 0%, #F59E0B 50%, #D97706 100%);
+  background: linear-gradient(135deg, #92400E 0%, #D97706 50%, #B45309 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .emerald-gradient-text {
-  background: linear-gradient(135deg, #D1FAE5 0%, #10B981 50%, #059669 100%);
+  background: linear-gradient(135deg, #065F46 0%, #059669 50%, #047857 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .luxury-card {
-  background: linear-gradient(145deg, rgba(15, 26, 48, 0.85) 0%, rgba(8, 14, 26, 0.95) 100%);
-  border: 1px solid rgba(245, 158, 11, 0.15);
-  backdrop-filter: blur(12px);
+  background: #ffffff;
+  border: 1px solid rgba(217, 119, 6, 0.2);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
 }
 
 .luxury-card-hover:hover {
-  border-color: rgba(245, 158, 11, 0.4);
-  box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.8), 0 0 20px -2px rgba(245, 158, 11, 0.2);
+  border-color: rgba(217, 119, 6, 0.5);
+  box-shadow: 0 15px 35px -10px rgba(217, 119, 6, 0.15), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
 /* Hide scrollbars */
