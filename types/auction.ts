@@ -79,3 +79,17 @@ export interface UserProfile {
 
 export type FilterStatus = 'all' | 'live' | 'ending_soon' | 'upcoming' | 'closed';
 export type SortOption = 'ending_soonest' | 'bids_high' | 'price_low' | 'price_high' | 'newest';
+
+export interface NotificationAlert {
+  id: string;
+  auctionId: string;
+  lotTitle: string;
+  lotImage?: string;
+  type: 'outbid' | 'bid' | 'won' | 'anti_snipe' | 'ending_soon';
+  title: string;
+  message: string;
+  timestamp: string;
+  read: boolean;
+  amount?: number;
+  bidderName?: string;
+}

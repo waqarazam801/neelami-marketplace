@@ -1,16 +1,10 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react';
-import { AuctionItem, Bid, UserProfile, Category, Currency } from '../types/auction';
+import { AuctionItem, Bid, UserProfile, Category, Currency, NotificationAlert } from '../types/auction';
 import { INITIAL_AUCTIONS, DEMO_USERS } from '../data/mockAuctions';
 import { getTimeRemaining, formatPriceByCurrency } from '../utils/formatters';
-
-interface NotificationMessage {
-  id: string;
-  type: 'bid' | 'outbid' | 'win' | 'anti_snipe' | 'create';
-  message: string;
-  timestamp: string;
-}
+import { playAuthenticGavel, playOutbidAlert, playBidChime } from '../utils/sound';
 
 interface AuctionContextType {
   auctions: AuctionItem[];
@@ -22,8 +16,15 @@ interface AuctionContextType {
   placeBid: (auctionId: string, amount: number) => { success: boolean; message: string };
   buyItNow: (auctionId: string) => { success: boolean; message: string };
   createAuction: (data: Omit<AuctionItem, 'id' | 'bids' | 'bidsCount' | 'currentBid'>) => string;
-  notifications: NotificationMessage[];
+  notifications: NotificationAlert[];
+  unreadNotificationCount: number;
+  markNotificationAsRead: (id: string) => void;
+  markAllNotificationsAsRead: () => void;
+  clearAllNotifications: () => void;
   clearNotification: (id: string) => void;
+  soundEnabled: boolean;
+  toggleSound: () => void;
+  playSoundGavel: () => void;
   isSimulationActive: boolean;
   setIsSimulationActive: (active: boolean) => void;
   currency: Currency;
@@ -31,13 +32,54 @@ interface AuctionContextType {
   formatPrice: (amountInPKR: number, compact?: boolean) => string;
 }
 
+const DEFAULT_NOTIFICATIONS: NotificationAlert[] = [
+  {
+    id: 'notif-seed-1',
+    auctionId: 'auc-101',
+    lotTitle: '1972 Vintage Rolex Datejust 36mm Solid Gold Dial',
+    lotImage: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=800&q=80',
+    type: 'outbid',
+    title: '⚠️ You were outbid by Farhan Saeed!',
+    message: 'New highest bid is ₨ 1,280,000. Lot closing soon with anti-sniping protection.',
+    timestamp: new Date(Date.now() - 4 * 60 * 1000).toISOString(),
+    read: false,
+    amount: 1280000,
+    bidderName: 'Farhan Saeed (Karachi)',
+  },
+  {
+    id: 'notif-seed-2',
+    auctionId: 'auc-103',
+    lotTitle: '1984 Toyota Land Cruiser FJ40 Restomod',
+    lotImage: 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=800&q=80',
+    type: 'ending_soon',
+    title: '⏰ Ending Soon: 1984 Toyota Land Cruiser FJ40',
+    message: 'Less than 30 minutes remain on this Crown Lot. Current hammer: ₨ 4,800,000.',
+    timestamp: new Date(Date.now() - 15 * 60 * 1000).toISOString(),
+    read: false,
+    amount: 4800000,
+  },
+  {
+    id: 'notif-seed-3',
+    auctionId: 'auc-102',
+    lotTitle: 'Rare Kashmir Royal Blue Sapphire 4.82 Carats (GIA)',
+    lotImage: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=800&q=80',
+    type: 'won',
+    title: '🛡️ Escrow Trust Established',
+    message: 'Company escrow verified. Funds held safely in Standard Chartered Trust.',
+    timestamp: new Date(Date.now() - 45 * 60 * 1000).toISOString(),
+    read: true,
+    amount: 2400000,
+  },
+];
+
 const AuctionContext = createContext<AuctionContextType | undefined>(undefined);
 
 export const AuctionProvider = ({ children }: { children: ReactNode }) => {
   const [auctions, setAuctions] = useState<AuctionItem[]>(INITIAL_AUCTIONS);
   const [currentUser, setCurrentUser] = useState<UserProfile>(DEMO_USERS[0]);
   const [watchlist, setWatchlist] = useState<string[]>(['auc-101', 'auc-103']);
-  const [notifications, setNotifications] = useState<NotificationMessage[]>([]);
+  const [notifications, setNotifications] = useState<NotificationAlert[]>(DEFAULT_NOTIFICATIONS);
+  const [soundEnabled, setSoundEnabled] = useState<boolean>(true);
   const [isSimulationActive, setIsSimulationActive] = useState<boolean>(true);
   const [currency, setCurrency] = useState<Currency>('USD');
 
@@ -59,6 +101,14 @@ export const AuctionProvider = ({ children }: { children: ReactNode }) => {
       const savedCurrency = localStorage.getItem('neelami_currency') as Currency;
       if (savedCurrency && ['USD', 'PKR', 'AED', 'GBP', 'EUR'].includes(savedCurrency)) {
         setCurrency(savedCurrency);
+      }
+      const savedSound = localStorage.getItem('neelami_sound_enabled');
+      if (savedSound !== null) {
+        setSoundEnabled(savedSound === 'true');
+      }
+      const savedNotifs = localStorage.getItem('neelami_notifications');
+      if (savedNotifs) {
+        setNotifications(JSON.parse(savedNotifs));
       }
     } catch (e) {
       console.warn('Storage read failed', e);
@@ -90,28 +140,80 @@ export const AuctionProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [watchlist]);
 
-  const addNotification = (type: NotificationMessage['type'], message: string) => {
-    const newNotif: NotificationMessage = {
-      id: Math.random().toString(36).substring(2, 9),
-      type,
-      message,
-      timestamp: new Date().toISOString(),
-    };
-    setNotifications((prev) => [newNotif, ...prev.slice(0, 7)]);
-  };
+  useEffect(() => {
+    try {
+      localStorage.setItem('neelami_notifications', JSON.stringify(notifications));
+    } catch (e) {
+      console.warn('Storage write failed', e);
+    }
+  }, [notifications]);
 
-  const clearNotification = (id: string) => {
+  const toggleSound = useCallback(() => {
+    setSoundEnabled((prev) => {
+      const next = !prev;
+      try {
+        localStorage.setItem('neelami_sound_enabled', String(next));
+      } catch (e) {
+        console.warn('Sound storage error', e);
+      }
+      if (next) {
+        playAuthenticGavel();
+      }
+      return next;
+    });
+  }, []);
+
+  const playSoundGavel = useCallback(() => {
+    if (soundEnabled) {
+      playAuthenticGavel();
+    }
+  }, [soundEnabled]);
+
+  const addNotificationAlert = useCallback((alert: Omit<NotificationAlert, 'id' | 'timestamp' | 'read'>) => {
+    const newAlert: NotificationAlert = {
+      ...alert,
+      id: 'notif-' + Date.now() + '-' + Math.floor(Math.random() * 1000),
+      timestamp: new Date().toISOString(),
+      read: false,
+    };
+    setNotifications((prev) => [newAlert, ...prev.slice(0, 19)]);
+  }, []);
+
+  const markNotificationAsRead = useCallback((id: string) => {
+    setNotifications((prev) => prev.map((n) => (n.id === id ? { ...n, read: true } : n)));
+  }, []);
+
+  const markAllNotificationsAsRead = useCallback(() => {
+    setNotifications((prev) => prev.map((n) => ({ ...n, read: true })));
+  }, []);
+
+  const clearAllNotifications = useCallback(() => {
+    setNotifications([]);
+  }, []);
+
+  const clearNotification = useCallback((id: string) => {
     setNotifications((prev) => prev.filter((n) => n.id !== id));
-  };
+  }, []);
+
+  const unreadNotificationCount = notifications.filter((n) => !n.read).length;
 
   const toggleWatchlist = (auctionId: string) => {
     setWatchlist((prev) => {
       const exists = prev.includes(auctionId);
       if (exists) {
-        addNotification('create', 'Item removed from your watchlist.');
         return prev.filter((id) => id !== auctionId);
       } else {
-        addNotification('create', 'Item added to your watchlist!');
+        const item = auctions.find((a) => a.id === auctionId);
+        if (item) {
+          addNotificationAlert({
+            auctionId: item.id,
+            lotTitle: item.title,
+            lotImage: item.images[0],
+            type: 'bid',
+            title: 'Added to Watchlist',
+            message: `You are now tracking ${item.title.substring(0, 30)}...`,
+          });
+        }
         return [...prev, auctionId];
       }
     });
@@ -119,7 +221,7 @@ export const AuctionProvider = ({ children }: { children: ReactNode }) => {
 
   const isWatched = (auctionId: string) => watchlist.includes(auctionId);
 
-  // Place a Bid with Anti-Sniping Protection
+  // Place a Bid with Anti-Sniping Protection & Audio Gavel
   const placeBid = useCallback((auctionId: string, amount: number): { success: boolean; message: string } => {
     let result = { success: false, message: '' };
 
@@ -168,11 +270,21 @@ export const AuctionProvider = ({ children }: { children: ReactNode }) => {
             : `Success! You are now the highest bidder at ₨ ${amount.toLocaleString('en-PK')}.`,
         };
 
-        if (snipeExtended) {
-          addNotification('anti_snipe', `🛡️ Anti-Sniping: Auction for "${item.title.substring(0, 30)}..." extended by 2 mins!`);
-        } else {
-          addNotification('bid', `New high bid placed: ₨ ${amount.toLocaleString('en-PK')} on "${item.title.substring(0, 26)}..."`);
+        // Trigger Audio Feedback
+        if (soundEnabled) {
+          playAuthenticGavel();
         }
+
+        // Add Notification
+        addNotificationAlert({
+          auctionId: item.id,
+          lotTitle: item.title,
+          lotImage: item.images[0],
+          type: snipeExtended ? 'anti_snipe' : 'bid',
+          title: snipeExtended ? '🛡️ Anti-Sniping Extended (+2m)' : 'Hammer Bid Accepted!',
+          message: `Your bid of ₨ ${amount.toLocaleString('en-PK')} on ${item.title.substring(0, 26)}... is active.`,
+          amount,
+        });
 
         return {
           ...item,
@@ -186,7 +298,7 @@ export const AuctionProvider = ({ children }: { children: ReactNode }) => {
     );
 
     return result;
-  }, [currentUser]);
+  }, [currentUser, soundEnabled, addNotificationAlert, currency]);
 
   // Buy It Now option
   const buyItNow = useCallback((auctionId: string): { success: boolean; message: string } => {
@@ -200,43 +312,83 @@ export const AuctionProvider = ({ children }: { children: ReactNode }) => {
           return item;
         }
 
-        result = {
-          success: true,
-          message: `Congratulations! You purchased "${item.title}" for ₨ ${item.buyNowPrice.toLocaleString('en-PK')}.`,
+        const now = new Date().toISOString();
+        const purchasePrice = item.buyNowPrice;
+
+        const winningBid: Bid = {
+          id: 'buy-now-' + Date.now(),
+          auctionId: item.id,
+          bidderId: currentUser.id,
+          bidderName: currentUser.name,
+          bidderAvatar: currentUser.avatar,
+          amount: purchasePrice,
+          timestamp: now,
         };
 
-        addNotification('win', `🎉 Instant Purchase! "${item.title}" won by ${currentUser.name}!`);
+        result = {
+          success: true,
+          message: `Congratulations! You purchased ${item.title} immediately for ₨ ${purchasePrice.toLocaleString('en-PK')}.`,
+        };
+
+        if (soundEnabled) {
+          playAuthenticGavel();
+        }
+
+        addNotificationAlert({
+          auctionId: item.id,
+          lotTitle: item.title,
+          lotImage: item.images[0],
+          type: 'won',
+          title: 'Lot Purchased via Buy It Now!',
+          message: `Immediate purchase confirmed for ₨ ${purchasePrice.toLocaleString('en-PK')}. Proceed to Escrow Settlement.`,
+          amount: purchasePrice,
+        });
 
         return {
           ...item,
           status: 'closed',
-          currentBid: item.buyNowPrice,
+          endTime: now,
+          currentBid: purchasePrice,
+          bidsCount: item.bidsCount + 1,
           winnerId: currentUser.id,
           winnerName: currentUser.name,
+          bids: [winningBid, ...item.bids],
         };
       })
     );
 
     return result;
-  }, [currentUser]);
+  }, [currentUser, soundEnabled, addNotificationAlert]);
 
-  // Create new auction
-  const createAuction = (data: Omit<AuctionItem, 'id' | 'bids' | 'bidsCount' | 'currentBid'>): string => {
-    const newId = 'auc-' + (Date.now() % 1000000);
-    const newAuction: AuctionItem = {
-      ...data,
-      id: newId,
-      currentBid: data.startingBid,
-      bidsCount: 0,
-      bids: [],
-    };
+  // Consign and Create Auction
+  const createAuction = useCallback(
+    (data: Omit<AuctionItem, 'id' | 'bids' | 'bidsCount' | 'currentBid'>): string => {
+      const newId = 'auc-' + Math.floor(100 + Math.random() * 900);
+      const newAuction: AuctionItem = {
+        ...data,
+        id: newId,
+        currentBid: data.startingBid,
+        bidsCount: 0,
+        bids: [],
+      };
 
-    setAuctions((prev) => [newAuction, ...prev]);
-    addNotification('create', `Your item "${newAuction.title}" is now LIVE for bidding!`);
-    return newId;
-  };
+      setAuctions((prev) => [newAuction, ...prev]);
 
-  // Simulated Competitor Bidding Generator for realistic experience
+      addNotificationAlert({
+        auctionId: newId,
+        lotTitle: data.title,
+        lotImage: data.images[0],
+        type: 'bid',
+        title: 'New Lot Consigned',
+        message: `"${data.title.substring(0, 30)}..." is now live for worldwide bidding!`,
+      });
+
+      return newId;
+    },
+    [addNotificationAlert]
+  );
+
+  // Background Competitor Bidding Simulation with Real-Time Outbid Notification
   useEffect(() => {
     if (!isSimulationActive) return;
 
@@ -258,7 +410,7 @@ export const AuctionProvider = ({ children }: { children: ReactNode }) => {
         const time = getTimeRemaining(target.endTime);
         if (time.isExpired) return currentAuctions;
 
-        // Skip if current user was not outbid or random chance
+        // Chance of counter-bid
         if (Math.random() > 0.45) return currentAuctions;
 
         const bidder = mockBidders[Math.floor(Math.random() * mockBidders.length)];
@@ -283,9 +435,23 @@ export const AuctionProvider = ({ children }: { children: ReactNode }) => {
         return currentAuctions.map((item) => {
           if (item.id !== target.id) return item;
 
-          // If current user was outbid, notify
-          if (item.bids.length > 0 && item.bids[0].bidderId === currentUser.id) {
-            addNotification('outbid', `⚠️ You were outbid on "${item.title.substring(0, 24)}..." at ₨ ${newBidAmount.toLocaleString('en-PK')}!`);
+          // If current user was outbid, trigger Outbid Alert & Sound
+          const wasCurrentUserLeading = item.bids.length > 0 && item.bids[0].bidderId === currentUser.id;
+          if (wasCurrentUserLeading) {
+            if (soundEnabled) {
+              playOutbidAlert();
+            }
+
+            addNotificationAlert({
+              auctionId: item.id,
+              lotTitle: item.title,
+              lotImage: item.images[0],
+              type: 'outbid',
+              title: `⚠️ Outbid on LOT #${item.id.toUpperCase()}!`,
+              message: `${bidder.name} placed a higher bid of ₨ ${newBidAmount.toLocaleString('en-PK')}. Raise your bid to regain lead!`,
+              amount: newBidAmount,
+              bidderName: bidder.name,
+            });
           }
 
           return {
@@ -297,10 +463,10 @@ export const AuctionProvider = ({ children }: { children: ReactNode }) => {
           };
         });
       });
-    }, 24000); // Trigger every 24s
+    }, 20000); // Trigger every 20s for exciting live feel
 
     return () => clearInterval(interval);
-  }, [isSimulationActive, currentUser]);
+  }, [isSimulationActive, currentUser, soundEnabled, addNotificationAlert]);
 
   return (
     <AuctionContext.Provider
@@ -315,7 +481,14 @@ export const AuctionProvider = ({ children }: { children: ReactNode }) => {
         buyItNow,
         createAuction,
         notifications,
+        unreadNotificationCount,
+        markNotificationAsRead,
+        markAllNotificationsAsRead,
+        clearAllNotifications,
         clearNotification,
+        soundEnabled,
+        toggleSound,
+        playSoundGavel,
         isSimulationActive,
         setIsSimulationActive,
         currency,

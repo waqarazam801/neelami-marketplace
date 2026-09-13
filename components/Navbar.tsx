@@ -19,8 +19,11 @@ import {
   X,
   Sparkles,
   Award,
-  Globe
+  Globe,
+  Volume2,
+  VolumeX
 } from 'lucide-react';
+import { NotificationBell } from './NotificationBell';
 
 export const Navbar: React.FC = () => {
   const { 
@@ -31,7 +34,9 @@ export const Navbar: React.FC = () => {
     setIsSimulationActive,
     currency,
     setCurrency,
-    formatPrice
+    formatPrice,
+    soundEnabled,
+    toggleSound
   } = useAuction();
 
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
@@ -184,6 +189,34 @@ export const Navbar: React.FC = () => {
               </span>
             )}
           </Link>
+
+          {/* Real-Time Activity & Outbid Notification Bell */}
+          <NotificationBell />
+
+          {/* Authentic Auctioneer Audio & Gavel Sound Toggle */}
+          <button
+            type="button"
+            onClick={toggleSound}
+            className={`p-2.5 rounded-xl border transition-all flex items-center gap-1.5 ${
+              soundEnabled
+                ? 'bg-amber-50 text-amber-800 border-amber-300 shadow-sm'
+                : 'bg-slate-100 text-slate-400 border-slate-200 hover:text-slate-600'
+            }`}
+            title={soundEnabled ? 'Auctioneer Audio: ON (Click to Mute Gavel Sound)' : 'Auctioneer Audio: MUTED (Click to Enable Sound)'}
+            aria-label="Toggle Auction Sound"
+          >
+            {soundEnabled ? (
+              <>
+                <Volume2 className="w-4 h-4 text-amber-700" />
+                <span className="hidden xl:inline text-[10px] font-bold uppercase tracking-wider text-amber-900">Audio ON</span>
+              </>
+            ) : (
+              <>
+                <VolumeX className="w-4 h-4 text-slate-400" />
+                <span className="hidden xl:inline text-[10px] font-bold uppercase tracking-wider text-slate-500">Muted</span>
+              </>
+            )}
+          </button>
 
           {/* User Profile & Demo Switcher */}
           <div className="relative">

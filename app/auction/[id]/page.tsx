@@ -29,7 +29,9 @@ import {
   ShoppingBag,
   Camera,
   Box,
-  Video
+  Video,
+  Volume2,
+  VolumeX
 } from 'lucide-react';
 import Model3DViewer from '../../../components/Model3DViewer';
 import VideoWalkthrough from '../../../components/VideoWalkthrough';
@@ -49,7 +51,9 @@ export default function AuctionRoomPage() {
     isSimulationActive,
     setIsSimulationActive,
     currency,
-    formatPrice
+    formatPrice,
+    soundEnabled,
+    toggleSound
   } = useAuction();
 
   // Find auction item
@@ -417,11 +421,37 @@ export default function AuctionRoomPage() {
           <div className="rounded-3xl bg-white border border-slate-200 p-6 sm:p-7 shadow-xl shadow-slate-200/50 space-y-6">
             {/* Lot Header */}
             <div>
-              <div className="flex items-center gap-2 mb-2">
-                <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200">
-                  {auction.category}
-                </span>
-                <span className="text-xs font-mono text-slate-500">LOT #{auction.id.toUpperCase()}</span>
+              <div className="flex items-center justify-between gap-2 mb-2">
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200">
+                    {auction.category}
+                  </span>
+                  <span className="text-xs font-mono text-slate-500">LOT #{auction.id.toUpperCase()}</span>
+                </div>
+
+                {/* In-Room Auctioneer Audio Toggle */}
+                <button
+                  type="button"
+                  onClick={toggleSound}
+                  className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold border transition-colors ${
+                    soundEnabled
+                      ? 'bg-amber-50 text-amber-800 border-amber-300 shadow-sm'
+                      : 'bg-slate-100 text-slate-400 border-slate-200 hover:text-slate-600'
+                  }`}
+                  title={soundEnabled ? 'Live Auctioneer Audio: ON (Click to Mute)' : 'Audio Muted (Click to Enable)'}
+                >
+                  {soundEnabled ? (
+                    <>
+                      <Volume2 className="w-3.5 h-3.5 text-amber-600" />
+                      <span>Audio ON</span>
+                    </>
+                  ) : (
+                    <>
+                      <VolumeX className="w-3.5 h-3.5 text-slate-400" />
+                      <span>Muted</span>
+                    </>
+                  )}
+                </button>
               </div>
               <h1 className="text-xl sm:text-2xl font-serif font-bold text-slate-900 leading-tight">
                 {auction.title}
