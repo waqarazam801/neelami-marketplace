@@ -26,8 +26,13 @@ import {
   Zap,
   Radio,
   FileCheck,
-  ShoppingBag
+  ShoppingBag,
+  Camera,
+  Box,
+  Video
 } from 'lucide-react';
+import Model3DViewer from '../../../components/Model3DViewer';
+import VideoWalkthrough from '../../../components/VideoWalkthrough';
 
 export default function AuctionRoomPage() {
   const params = useParams();
@@ -52,6 +57,7 @@ export default function AuctionRoomPage() {
     return auctions.find((a: AuctionItem) => a.id === auctionId);
   }, [auctions, auctionId]);
 
+  const [mediaMode, setMediaMode] = useState<'photos' | '3d' | 'video'>('photos');
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [activeTab, setActiveTab] = useState<'bids' | 'specs' | 'shipping'>('bids');
   const [customBidAmount, setCustomBidAmount] = useState<number | ''>('');
@@ -174,45 +180,106 @@ export default function AuctionRoomPage() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Left Column: Image Gallery & Lot Description */}
         <div className="lg:col-span-7 space-y-6">
-          {/* Main Photo Viewer */}
-          <div className="relative aspect-[4/3] w-full rounded-3xl overflow-hidden bg-slate-950 border border-slate-800 shadow-2xl">
-            <Image
-              src={auction.images[selectedImageIndex] || auction.images[0]}
-              alt={auction.title}
-              fill
-              priority
-              className="object-cover"
-            />
+          {/* Interactive Media Switcher Tabs */}
+          <div className="flex items-center gap-2 p-1.5 bg-slate-900/90 rounded-2xl border border-slate-800 backdrop-blur-md overflow-x-auto">
+            <button
+              onClick={() => setMediaMode('photos')}
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all shrink-0 ${
+                mediaMode === 'photos'
+                  ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-950/60'
+                  : 'text-slate-400 hover:text-white hover:bg-slate-800'
+              }`}
+            >
+              <Camera className="w-3.5 h-3.5" />
+              <span>Photos ({auction.images.length})</span>
+            </button>
 
-            {/* Live Status Badge overlay */}
-            <div className="absolute top-4 left-4 z-10 flex items-center gap-2">
-              <span className="px-3 py-1 rounded-full bg-slate-950/80 backdrop-blur-md border border-slate-700/60 text-emerald-400 font-bold text-xs flex items-center gap-1.5 shadow">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-                LIVE BIDDING
+            <button
+              onClick={() => setMediaMode('3d')}
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all shrink-0 ${
+                mediaMode === '3d'
+                  ? 'bg-gradient-to-r from-amber-500 to-amber-400 text-neutral-950 shadow-lg shadow-amber-950/60 font-black'
+                  : 'text-slate-400 hover:text-amber-300 hover:bg-slate-800'
+              }`}
+            >
+              <Box className="w-3.5 h-3.5" />
+              <span>3D Model (360°)</span>
+              <span className="text-[10px] bg-amber-400/20 text-amber-300 px-1.5 py-0.5 rounded-full border border-amber-400/30">
+                Interactive
               </span>
-              <span className="px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-slate-300 text-xs">
-                {auction.condition}
+            </button>
+
+            <button
+              onClick={() => setMediaMode('video')}
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all shrink-0 ${
+                mediaMode === 'video'
+                  ? 'bg-cyan-600 text-white shadow-lg shadow-cyan-950/60'
+                  : 'text-slate-400 hover:text-cyan-300 hover:bg-slate-800'
+              }`}
+            >
+              <Video className="w-3.5 h-3.5" />
+              <span>4K Walkthrough</span>
+              <span className="text-[10px] bg-cyan-400/20 text-cyan-300 px-1.5 py-0.5 rounded-full border border-cyan-400/30">
+                HD Video
               </span>
-            </div>
+            </button>
           </div>
 
-          {/* Thumbnails */}
-          {auction.images.length > 1 && (
-            <div className="flex items-center gap-3 overflow-x-auto pb-1">
-              {auction.images.map((img: string, idx: number) => (
-                <button
-                  key={idx}
-                  onClick={() => setSelectedImageIndex(idx)}
-                  className={`relative w-20 h-16 rounded-xl overflow-hidden border-2 shrink-0 transition-all ${
-                    selectedImageIndex === idx
-                      ? 'border-emerald-500 scale-105 shadow-md shadow-emerald-950/50'
-                      : 'border-slate-800 opacity-70 hover:opacity-100'
-                  }`}
-                >
-                  <Image src={img} alt="" fill className="object-cover" />
-                </button>
-              ))}
-            </div>
+          {/* Media Viewport Container */}
+          {mediaMode === '3d' ? (
+            <Model3DViewer
+              modelType={auction.model3dType || 'watch'}
+              title={auction.title}
+            />
+          ) : mediaMode === 'video' ? (
+            <VideoWalkthrough
+              videoUrl={auction.videoUrl}
+              title={auction.title}
+              posterUrl={auction.images[0]}
+            />
+          ) : (
+            <>
+              {/* Main Photo Viewer */}
+              <div className="relative aspect-[4/3] w-full rounded-3xl overflow-hidden bg-slate-950 border border-slate-800 shadow-2xl">
+                <Image
+                  src={auction.images[selectedImageIndex] || auction.images[0]}
+                  alt={auction.title}
+                  fill
+                  priority
+                  className="object-cover"
+                />
+
+                {/* Live Status Badge overlay */}
+                <div className="absolute top-4 left-4 z-10 flex items-center gap-2">
+                  <span className="px-3 py-1 rounded-full bg-slate-950/80 backdrop-blur-md border border-slate-700/60 text-emerald-400 font-bold text-xs flex items-center gap-1.5 shadow">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+                    LIVE BIDDING
+                  </span>
+                  <span className="px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-slate-300 text-xs">
+                    {auction.condition}
+                  </span>
+                </div>
+              </div>
+
+              {/* Thumbnails */}
+              {auction.images.length > 1 && (
+                <div className="flex items-center gap-3 overflow-x-auto pb-1">
+                  {auction.images.map((img: string, idx: number) => (
+                    <button
+                      key={idx}
+                      onClick={() => setSelectedImageIndex(idx)}
+                      className={`relative w-20 h-16 rounded-xl overflow-hidden border-2 shrink-0 transition-all ${
+                        selectedImageIndex === idx
+                          ? 'border-emerald-500 scale-105 shadow-md shadow-emerald-950/50'
+                          : 'border-slate-800 opacity-70 hover:opacity-100'
+                      }`}
+                    >
+                      <Image src={img} alt="" fill className="object-cover" />
+                    </button>
+                  ))}
+                </div>
+              )}
+            </>
           )}
 
           {/* Product Overview & Description */}

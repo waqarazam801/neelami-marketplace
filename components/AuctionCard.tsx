@@ -7,7 +7,8 @@ import { AuctionItem } from '../types/auction';
 import { useAuction } from '../context/AuctionContext';
 import { CountdownTimer } from './CountdownTimer';
 import { formatPKR } from '../utils/formatters';
-import { Heart, Gavel, MapPin, Zap, CheckCircle2, ShieldCheck } from 'lucide-react';
+import { Heart, Gavel, MapPin, Zap, CheckCircle2, ShieldCheck, Box, Video } from 'lucide-react';
+import TiltCard3D from './TiltCard3D';
 
 interface AuctionCardProps {
   auction: AuctionItem;
@@ -19,24 +20,30 @@ export const AuctionCard: React.FC<AuctionCardProps> = ({ auction }) => {
   const reserveMet = auction.currentBid >= auction.reservePrice;
 
   return (
-    <div className="group flex flex-col bg-gradient-to-b from-[#0E182D] to-[#080E1C] rounded-3xl border border-amber-500/20 hover:border-amber-500/60 transition-all duration-500 hover:shadow-2xl hover:shadow-amber-500/10 overflow-hidden hover:-translate-y-1">
-      {/* Thumbnail & Badges Container */}
-      <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-950">
-        <Image
-          src={auction.images[0]}
-          alt={auction.title}
-          fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-cover group-hover:scale-108 transition-transform duration-700 ease-out"
-        />
+    <TiltCard3D className="h-full">
+      <div className="group flex flex-col h-full bg-gradient-to-b from-[#0E182D] to-[#080E1C] rounded-3xl border border-amber-500/20 hover:border-amber-500/60 transition-all duration-500 hover:shadow-2xl hover:shadow-amber-500/10 overflow-hidden">
+        {/* Thumbnail & Badges Container */}
+        <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-950">
+          <Image
+            src={auction.images[0]}
+            alt={auction.title}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover group-hover:scale-108 transition-transform duration-700 ease-out"
+          />
 
-        {/* Gradient Shadow Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#080E1C] via-transparent to-black/40 pointer-events-none" />
+          {/* Gradient Shadow Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#080E1C] via-transparent to-black/40 pointer-events-none" />
 
-        {/* Live Timer Badge (Top Left) */}
-        <div className="absolute top-3.5 left-3.5 z-10">
-          <CountdownTimer endTime={auction.endTime} compact />
-        </div>
+          {/* Live Timer Badge & 3D / Video indicator (Top Left) */}
+          <div className="absolute top-3.5 left-3.5 z-10 flex flex-col gap-1.5 items-start">
+            <CountdownTimer endTime={auction.endTime} compact />
+            {auction.model3dType && (
+              <span className="flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/90 text-neutral-950 shadow-md backdrop-blur-md uppercase tracking-wider">
+                <Box className="w-3 h-3" /> 3D View
+              </span>
+            )}
+          </div>
 
         {/* Watchlist Heart Button (Top Right) */}
         <button
@@ -131,5 +138,6 @@ export const AuctionCard: React.FC<AuctionCardProps> = ({ auction }) => {
         </div>
       </div>
     </div>
+  </TiltCard3D>
   );
 };

@@ -75,6 +75,8 @@ export const INITIAL_AUCTIONS: AuctionItem[] = [
     endTime: getFutureISO(18), // 18 minutes remaining!
     status: 'ending_soon',
     featured: true,
+    model3dType: 'watch',
+    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-close-up-of-a-luxury-watch-clockwork-42617-large.mp4',
     shippingInfo: {
       city: 'Karachi',
       cost: 2500,
@@ -130,6 +132,8 @@ export const INITIAL_AUCTIONS: AuctionItem[] = [
     description: 'Rare handcrafted Indo-Persian planispheric astrolabe dated AH 1142 (c. 1730 CE). Elaborately engraved rete displaying 24 principal stars with dragon-headed pointers. Inscribed with astronomical tables calculated for Lahore and Delhi latitudes.',
     category: 'Antiques & Art',
     condition: 'Antique / Vintage',
+    model3dType: 'antique',
+    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-hands-holding-and-showing-an-antique-brass-pocket-watch-41159-large.mp4',
     images: [
       'https://images.unsplash.com/photo-1533158326339-7f3cf2404354?auto=format&fit=crop&w=1000&q=80',
       'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=1000&q=80',
@@ -190,6 +194,8 @@ export const INITIAL_AUCTIONS: AuctionItem[] = [
     description: 'Factory sealed, brand new international warranty unit with US English keyboard. Includes full Apple Care+ eligible serial number, 140W USB-C Power Adapter, and braided MagSafe 3 cable.',
     category: 'Electronics & Gadgets',
     condition: 'Brand New',
+    model3dType: 'gadget',
+    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-hands-of-a-person-typing-on-a-laptop-43555-large.mp4',
     images: [
       'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=1000&q=80',
       'https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&w=1000&q=80',
@@ -251,6 +257,8 @@ export const INITIAL_AUCTIONS: AuctionItem[] = [
     description: 'Unheated natural royal blue sapphire with GIA and Gübelin Gem Lab report certificates. Accented by two trapezoid-cut DEF VS1 natural diamonds totaling 0.85 carats in hand-cast 950 Platinum setting.',
     category: 'Jewelry & Gems',
     condition: 'Like New',
+    model3dType: 'gemstone',
+    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-extreme-close-up-of-a-diamond-ring-41221-large.mp4',
     images: [
       'https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=1000&q=80',
       'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=1000&q=80',
@@ -311,6 +319,8 @@ export const INITIAL_AUCTIONS: AuctionItem[] = [
     description: 'Complete frame-off nut-and-bolt restoration completed in 2023. Finished in Dune Beige with white hardtop. Features rebuilt 2F inline-six, Old Man Emu 2.5" lift suspension, BFGoodrich All-Terrain KO2 tires, Warn 8000lb winch, and saddle leather interior.',
     category: 'Vehicles & Motors',
     condition: 'Used - Mint',
+    model3dType: 'vehicle',
+    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-vintage-car-driving-on-a-road-42358-large.mp4',
     images: [
       'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1000&q=80',
       'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1000&q=80',
@@ -371,6 +381,8 @@ export const INITIAL_AUCTIONS: AuctionItem[] = [
     description: 'Extraordinary 100% natural mulberry silk on silk foundation with 850 KPSI (knots per square inch). Woven by master weaver workshop in Isfahan featuring medallion and scrolling arabesque vine motifs with natural vegetable dyes.',
     category: 'Antiques & Art',
     condition: 'Antique / Vintage',
+    model3dType: 'antique',
+    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-hands-holding-and-showing-an-antique-brass-pocket-watch-41159-large.mp4',
     images: [
       'https://images.unsplash.com/photo-1600121848594-d8644e57abab?auto=format&fit=crop&w=1000&q=80',
       'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=1000&q=80',
@@ -431,6 +443,8 @@ export const INITIAL_AUCTIONS: AuctionItem[] = [
     description: 'Extremely limited collector edition commemorating 30 years of PlayStation in nostalgic PS1 grey livery. Includes DualSense wireless controller, vertical stand, retro cable housing, collector stickers, and original numbered commemorative box.',
     category: 'Electronics & Gadgets',
     condition: 'Brand New',
+    model3dType: 'gadget',
+    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-hands-of-a-person-typing-on-a-laptop-43555-large.mp4',
     images: [
       'https://images.unsplash.com/photo-1606813907291-d86efa9b94db?auto=format&fit=crop&w=1000&q=80',
       'https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=1000&q=80',

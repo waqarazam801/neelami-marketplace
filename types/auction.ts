@@ -61,6 +61,8 @@ export interface AuctionItem {
   shippingInfo: ShippingInfo;
   specifications: Record<string, string>;
   bids: Bid[];
+  model3dType?: 'watch' | 'vehicle' | 'gemstone' | 'antique' | 'gadget';
+  videoUrl?: string;
 }
 
 export interface UserProfile {
