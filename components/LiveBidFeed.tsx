@@ -2,7 +2,8 @@
 
 import React from 'react';
 import { Bid } from '../types/auction';
-import { formatPKR, formatRelativeTime } from '../utils/formatters';
+import { formatRelativeTime } from '../utils/formatters';
+import { useAuction } from '../context/AuctionContext';
 import { Gavel, Trophy, User, ShieldCheck } from 'lucide-react';
 
 interface LiveBidFeedProps {
@@ -11,6 +12,7 @@ interface LiveBidFeedProps {
 }
 
 export const LiveBidFeed: React.FC<LiveBidFeedProps> = ({ bids, currentBid }) => {
+  const { formatPrice } = useAuction();
   if (bids.length === 0) {
     return (
       <div className="text-center py-8 px-4 bg-slate-950/40 rounded-2xl border border-dashed border-slate-800">
@@ -69,7 +71,7 @@ export const LiveBidFeed: React.FC<LiveBidFeedProps> = ({ bids, currentBid }) =>
                   isHighest ? 'text-amber-400 text-base' : 'text-slate-300 text-sm'
                 }`}
               >
-                {formatPKR(bid.amount)}
+                {formatPrice(bid.amount)}
               </div>
               <div className="text-[10px] text-emerald-500/80 flex items-center justify-end gap-1">
                 <ShieldCheck className="w-3 h-3 inline" /> Verified

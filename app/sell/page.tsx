@@ -6,7 +6,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useAuction } from '../../context/AuctionContext';
 import { Category, AuctionItem } from '../../types/auction';
-import { formatPKR } from '../../utils/formatters';
 import { 
   PlusCircle, 
   Gavel, 
@@ -15,7 +14,8 @@ import {
   HelpCircle, 
   ArrowLeft,
   Sparkles,
-  Check
+  Check,
+  Globe
 } from 'lucide-react';
 
 const PRESET_SAMPLE_IMAGES = [
@@ -29,7 +29,7 @@ const PRESET_SAMPLE_IMAGES = [
 
 export default function SellAuctionPage() {
   const router = useRouter();
-  const { currentUser, createAuction } = useAuction();
+  const { currentUser, createAuction, currency, formatPrice } = useAuction();
 
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState<Category>('Luxury Watches');
@@ -269,17 +269,17 @@ export default function SellAuctionPage() {
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-bold text-slate-100 flex items-center gap-2">
               <span className="w-6 h-6 rounded-full bg-emerald-600 text-white text-xs flex items-center justify-center font-mono">3</span>
-              Auction Pricing & Duration (PKR ₨)
+              Auction Pricing & Global Conversion (Base PKR ₨)
             </h2>
             <span className="text-xs font-mono font-bold text-amber-400 bg-amber-950/60 px-2.5 py-1 rounded-full border border-amber-800/40">
-              Pakistani Rupees (₨)
+              Active Global Currency: {currency}
             </span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="text-xs font-semibold text-slate-300 block mb-1">
-                Starting Bid (PKR ₨) *
+                Starting Bid (Base PKR ₨) *
               </label>
               <input
                 type="number"
@@ -290,7 +290,7 @@ export default function SellAuctionPage() {
                 onChange={(e) => setStartingBid(Number(e.target.value))}
                 className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500 font-mono font-bold"
               />
-              <span className="text-[11px] text-slate-400 mt-1 block">Formatted: {formatPKR(startingBid)}</span>
+              <span className="text-[11px] text-slate-400 mt-1 block">Worldwide Display: {formatPrice(startingBid)}</span>
             </div>
 
             <div>

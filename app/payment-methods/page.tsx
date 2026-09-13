@@ -27,13 +27,13 @@ export default function PaymentMethodsPage() {
           <ArrowLeft className="w-3.5 h-3.5" /> Back to Marketplace
         </Link>
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-bold uppercase tracking-wider">
-          <ShieldCheck className="w-3.5 h-3.5 text-amber-400" /> State Bank of Pakistan Approved Escrow
+          <ShieldCheck className="w-3.5 h-3.5 text-amber-400" /> Worldwide Multi-Currency & Bank Escrow Protection
         </div>
         <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-white">
-          Payment Methods & Escrow Protection
+          Worldwide Payment Methods & Escrow Trust
         </h1>
         <p className="text-sm sm:text-base text-slate-300 max-w-2xl font-light">
-          Neelami.com ensures 100% financial security for both buyers and consignors. Learn how deposits, winning payments, and payouts work across Pakistan.
+          Neelami.com ensures 100% financial safety for collectors and consignors globally. Settle winning lots in USD ($), AED (د.إ), GBP (£), EUR (€), or PKR (₨) with bank-grade legal custody.
         </p>
       </div>
 
@@ -44,8 +44,8 @@ export default function PaymentMethodsPage() {
             <Lock className="w-7 h-7" />
           </div>
           <div>
-            <h2 className="text-xl font-serif font-bold text-white">How the Neelami Escrow System Protects You</h2>
-            <p className="text-xs text-slate-400 mt-0.5">Funds are held in corporate trust at Habib Bank Limited (HBL) & Meezan Bank.</p>
+            <h2 className="text-xl font-serif font-bold text-white">How the Neelami Global Escrow System Protects You</h2>
+            <p className="text-xs text-slate-400 mt-0.5">Funds are held in corporate trust at Standard Chartered, Habib Bank Limited (HBL) & Meezan Bank.</p>
           </div>
         </div>
 
@@ -109,19 +109,67 @@ export default function PaymentMethodsPage() {
 
       {/* Detailed Payment Channels Grid */}
       <div className="space-y-6">
-        <h2 className="text-2xl font-serif font-bold text-white">
-          Accepted Pakistani Payment Channels (To Neelami.com)
-        </h2>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div>
+            <h2 className="text-2xl font-serif font-bold text-white">
+              Accepted Global & Domestic Payment Channels
+            </h2>
+            <p className="text-xs text-slate-400 mt-1">Multi-currency trust settlement for international and Pakistani collectors.</p>
+          </div>
+          <span className="text-xs font-mono font-bold text-amber-400 bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/30 w-fit">
+            Supported: USD • EUR • GBP • AED • PKR
+          </span>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* 1. Raast */}
+          {/* 1. Global Cards & Apple Pay */}
+          <div className="p-6 rounded-3xl bg-[#0A1326] border border-amber-500/20 space-y-4">
+            <div className="flex items-center gap-3">
+              <div className="p-3 rounded-2xl bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+                <CreditCard className="w-6 h-6" />
+              </div>
+              <div>
+                <h3 className="font-bold text-white text-base">Global Cards & Apple Pay (Worldwide)</h3>
+                <span className="text-[11px] text-emerald-400 font-mono">Visa • Mastercard • Amex • Apple Pay • Google Pay</span>
+              </div>
+            </div>
+            <p className="text-xs text-slate-300 leading-relaxed">
+              Instant checkout for international buyers in USA, UK, Europe, UAE, Canada, and Australia. 3D-Secure 2.0 encrypted with bank-level fraud detection.
+            </p>
+            <div className="p-3 rounded-xl bg-[#070D1B] border border-slate-800 text-xs font-mono text-emerald-400 flex items-center justify-between">
+              <span>Settlement Currencies:</span>
+              <span className="font-bold text-slate-200">USD, EUR, GBP, AED, PKR</span>
+            </div>
+          </div>
+
+          {/* 2. SWIFT International Wire */}
+          <div className="p-6 rounded-3xl bg-[#0A1326] border border-amber-500/20 space-y-4">
+            <div className="flex items-center gap-3">
+              <div className="p-3 rounded-2xl bg-blue-500/15 text-blue-400 border border-blue-500/30">
+                <Building2 className="w-6 h-6" />
+              </div>
+              <div>
+                <h3 className="font-bold text-white text-base">SWIFT & IBAN Global Bank Wire</h3>
+                <span className="text-[11px] text-blue-400 font-mono">Standard Chartered Global Escrow Custody</span>
+              </div>
+            </div>
+            <p className="text-xs text-slate-300 leading-relaxed">
+              Direct international wire transfers for six-figure and seven-figure fine art, rare horology, and collector motorcars. Complete with escrow confirmation advice within 2-4 hours.
+            </p>
+            <div className="p-3 rounded-xl bg-[#070D1B] border border-slate-800 text-xs font-mono text-slate-300 space-y-1">
+              <div>Beneficiary: <strong>Neelami International Escrow Limited</strong></div>
+              <div>SWIFT / BIC: <strong>SCBLPKKAX</strong> (Standard Chartered Trust)</div>
+            </div>
+          </div>
+
+          {/* 3. Raast */}
           <div className="p-6 rounded-3xl bg-[#0A1326] border border-amber-500/20 space-y-4">
             <div className="flex items-center gap-3">
               <div className="p-3 rounded-2xl bg-amber-500/15 text-amber-400 border border-amber-500/30">
                 <QrCode className="w-6 h-6" />
               </div>
               <div>
-                <h3 className="font-bold text-white text-base">Raast Instant Payment (State Bank of Pakistan)</h3>
+                <h3 className="font-bold text-white text-base">State Bank Raast Instant P2M (Pakistan)</h3>
                 <span className="text-[11px] text-emerald-400 font-mono">0% Processing Fee • Instant 24/7 Clearance</span>
               </div>
             </div>
@@ -134,19 +182,19 @@ export default function PaymentMethodsPage() {
             </div>
           </div>
 
-          {/* 2. Direct Bank Wire */}
+          {/* 4. Direct Bank Wire (Pakistan 1Link) */}
           <div className="p-6 rounded-3xl bg-[#0A1326] border border-amber-500/20 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="p-3 rounded-2xl bg-blue-500/15 text-blue-400 border border-blue-500/30">
+              <div className="p-3 rounded-2xl bg-purple-500/15 text-purple-400 border border-purple-500/30">
                 <Building2 className="w-6 h-6" />
               </div>
               <div>
-                <h3 className="font-bold text-white text-base">1Link IBFT & Direct Bank Transfer</h3>
-                <span className="text-[11px] text-blue-400 font-mono">Real-Time Gross Settlement (RTGS) for High Value</span>
+                <h3 className="font-bold text-white text-base">1Link IBFT & Domestic Bank Transfer</h3>
+                <span className="text-[11px] text-purple-400 font-mono">Real-Time Gross Settlement (RTGS)</span>
               </div>
             </div>
             <p className="text-xs text-slate-300 leading-relaxed">
-              Direct transfer to our dedicated trust accounts at Habib Bank Limited and Meezan Bank. Recommended for transactions above ₨ 500,000 up to Crores.
+              Direct transfer to our dedicated trust accounts at Habib Bank Limited and Meezan Bank. Recommended for domestic transactions above ₨ 500,000 up to Crores.
             </p>
             <div className="p-3 rounded-xl bg-[#070D1B] border border-slate-800 text-xs font-mono text-slate-300 space-y-1">
               <div>Title: <strong>Neelami Escrow Trustee Private Limited</strong></div>
@@ -200,6 +248,34 @@ export default function PaymentMethodsPage() {
             <p className="text-xs text-slate-300 leading-relaxed">
               For high-value lots like commercial plots (e.g. Gulberg III Lahore) or collector vehicles (Toyota FJ40 restomod), buyers can issue a certified Banker's Pay Order drawn from any scheduled bank in Pakistan in favor of "Neelami Escrow Trustee (Pvt) Ltd". Physical handover is executed at LDA / registry office upon clearance.
             </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Worldwide Logistics & Customs Handling */}
+      <div className="p-8 rounded-3xl bg-gradient-to-r from-[#0C1A32] via-[#09152A] to-[#071122] border border-amber-500/25 space-y-5">
+        <div className="flex items-center gap-3">
+          <div className="p-3 rounded-2xl bg-amber-500/20 text-amber-400 border border-amber-500/30">
+            <Award className="w-6 h-6" />
+          </div>
+          <div>
+            <h2 className="text-xl font-serif font-bold text-white">Worldwide Insured Courier & Customs Clearance</h2>
+            <p className="text-xs text-slate-400 mt-0.5">Global air cargo with end-to-end provenance security.</p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs text-slate-300">
+          <div className="p-4 rounded-xl bg-[#081020] border border-slate-800 space-y-1">
+            <span className="font-bold text-amber-300 block">DHL Express Worldwide:</span>
+            <p className="text-slate-400">Door-to-door tracked transit across 140+ countries within 3-5 business days.</p>
+          </div>
+          <div className="p-4 rounded-xl bg-[#081020] border border-slate-800 space-y-1">
+            <span className="font-bold text-emerald-400 block">100% Transit Marine Insurance:</span>
+            <p className="text-slate-400">Every consigned lot is fully insured against theft, loss, or handling damage.</p>
+          </div>
+          <div className="p-4 rounded-xl bg-[#081020] border border-slate-800 space-y-1">
+            <span className="font-bold text-blue-300 block">Export & Heritage Clearance:</span>
+            <p className="text-slate-400">Formal export documentation and antiquity certification provided by Neelami curators.</p>
           </div>
         </div>
       </div>

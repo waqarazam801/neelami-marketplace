@@ -30,7 +30,9 @@ function DashboardContent() {
   const { 
     currentUser, 
     auctions, 
-    watchlist 
+    watchlist,
+    currency,
+    formatPrice
   } = useAuction();
 
   const [activeTab, setActiveTab] = useState<'bids' | 'won' | 'listings' | 'watchlist'>(
@@ -107,10 +109,10 @@ function DashboardContent() {
             </div>
             <div>
               <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
-                Escrow Wallet Balance (PKR)
+                Escrow Wallet Balance ({currency})
               </span>
               <div className="text-xl sm:text-2xl font-black text-amber-400 font-mono mt-0.5">
-                {formatPKR(currentUser.walletBalance)}
+                {formatPrice(currentUser.walletBalance)}
               </div>
               <span className="text-[10px] text-emerald-400">Verified for Bidding</span>
             </div>
@@ -220,9 +222,9 @@ function DashboardContent() {
                           {auction.title}
                         </Link>
                         <div className="flex items-center gap-3 text-xs mt-1">
-                          <span className="text-slate-400">Your Bid: <strong className="font-mono text-slate-200">{formatPKR(userHighestBid)}</strong></span>
+                          <span className="text-slate-400">Your Bid: <strong className="font-mono text-slate-200">{formatPrice(userHighestBid)}</strong></span>
                           <span>•</span>
-                          <span className="text-slate-400">Current Hammer: <strong className="font-mono text-amber-400">{formatPKR(auction.currentBid)}</strong></span>
+                          <span className="text-slate-400">Current Hammer: <strong className="font-mono text-amber-400">{formatPrice(auction.currentBid)}</strong></span>
                         </div>
                       </div>
                     </div>
@@ -298,7 +300,7 @@ function DashboardContent() {
                       </div>
                       <h4 className="font-bold text-white text-sm mt-0.5">{auction.title}</h4>
                       <p className="text-xs text-slate-400">
-                        Winning Hammer Price: <span className="font-mono font-bold text-amber-400">{formatPKR(auction.currentBid)}</span> • Seller: {auction.seller.name}
+                        Winning Hammer Price: <span className="font-mono font-bold text-amber-400">{formatPrice(auction.currentBid)}</span> • Seller: {auction.seller.name}
                       </p>
                     </div>
                   </div>
@@ -367,11 +369,11 @@ function DashboardContent() {
                       <span className="text-xs text-emerald-400 font-semibold">{auction.category}</span>
                       <h4 className="font-bold text-white text-sm">{auction.title}</h4>
                       <div className="flex items-center gap-3 text-xs text-slate-400 mt-1">
-                        <span>Current High: <strong className="font-mono text-amber-400">{formatPKR(auction.currentBid)}</strong></span>
+                        <span>Current High: <strong className="font-mono text-amber-400">{formatPrice(auction.currentBid)}</strong></span>
                         <span>•</span>
                         <span>{auction.bidsCount} Bids Placed</span>
                         <span>•</span>
-                        <span>Reserve: {formatPKR(auction.reservePrice)}</span>
+                        <span>Reserve: {formatPrice(auction.reservePrice)}</span>
                       </div>
                     </div>
                   </div>
@@ -415,7 +417,7 @@ function DashboardContent() {
                     <div className="min-w-0 flex-1">
                       <span className="text-[10px] text-emerald-400 font-semibold uppercase">{auction.category}</span>
                       <h4 className="font-bold text-slate-100 text-xs line-clamp-1">{auction.title}</h4>
-                      <p className="text-xs font-mono font-bold text-amber-400 mt-1">{formatPKR(auction.currentBid)}</p>
+                      <p className="text-xs font-mono font-bold text-amber-400 mt-1">{formatPrice(auction.currentBid)}</p>
                     </div>
                   </div>
 

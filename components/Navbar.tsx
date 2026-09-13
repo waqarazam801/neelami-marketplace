@@ -5,6 +5,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useAuction } from '../context/AuctionContext';
 import { DEMO_USERS } from '../data/mockAuctions';
+import { CURRENCY_CONFIG } from '../utils/formatters';
+import { Currency } from '../types/auction';
 import { 
   Gavel, 
   Heart, 
@@ -16,7 +18,8 @@ import {
   Menu, 
   X,
   Sparkles,
-  Award
+  Award,
+  Globe
 } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
@@ -25,11 +28,15 @@ export const Navbar: React.FC = () => {
     setCurrentUser, 
     watchlist, 
     isSimulationActive, 
-    setIsSimulationActive 
+    setIsSimulationActive,
+    currency,
+    setCurrency,
+    formatPrice
   } = useAuction();
 
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isCurrencyMenuOpen, setIsCurrencyMenuOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-40 w-full bg-[#070D1B]/95 backdrop-blur-xl border-b border-amber-500/20 text-slate-100 shadow-2xl">
@@ -41,15 +48,58 @@ export const Navbar: React.FC = () => {
             <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
           </span>
           <span className="tracking-wide">
-            Neelami.com — Pakistan’s Royal Exchange for High-Value Consignments & Live Bidding
+            Neelami.com — Global Luxury Auction House & Secure Escrow Exchange
           </span>
         </div>
 
         <div className="hidden sm:flex items-center gap-4 text-slate-400 text-xs">
-          {/* Currency indicator */}
-          <div className="flex items-center gap-1.5 text-amber-300 font-mono font-bold bg-amber-500/10 px-2.5 py-0.5 rounded-full border border-amber-500/30 shadow-sm">
-            <span className="text-xs">🇵🇰</span>
-            <span>Currency: ₨ PKR (Pakistani Rupee)</span>
+          {/* Worldwide Currency Selector */}
+          <div className="relative">
+            <button
+              onClick={() => setIsCurrencyMenuOpen(!isCurrencyMenuOpen)}
+              className="flex items-center gap-1.5 text-amber-300 font-mono font-bold bg-amber-500/15 hover:bg-amber-500/25 px-3 py-1 rounded-full border border-amber-500/40 shadow-sm transition-all text-xs"
+              title="Change Global Currency"
+            >
+              <Globe className="w-3.5 h-3.5 text-amber-400" />
+              <span>{CURRENCY_CONFIG[currency]?.flag || '🌐'}</span>
+              <span>{currency} ({CURRENCY_CONFIG[currency]?.symbol.trim()})</span>
+              <ChevronDown className="w-3 h-3 text-amber-400/80" />
+            </button>
+
+            {isCurrencyMenuOpen && (
+              <div
+                className="absolute right-0 mt-1.5 w-56 rounded-xl bg-[#0C1527] border border-amber-500/30 shadow-2xl p-1.5 z-50 animate-in fade-in zoom-in-95 duration-100 text-left"
+                onClick={() => setIsCurrencyMenuOpen(false)}
+              >
+                <div className="px-2.5 py-1.5 border-b border-slate-800 text-[10px] font-bold text-amber-300 uppercase tracking-wider flex items-center gap-1">
+                  <Globe className="w-3 h-3 text-amber-400" /> Select Global Currency
+                </div>
+                {(Object.keys(CURRENCY_CONFIG) as Currency[]).map((curKey) => {
+                  const cfg = CURRENCY_CONFIG[curKey];
+                  const isSelected = currency === curKey;
+                  return (
+                    <button
+                      key={curKey}
+                      onClick={() => {
+                        setCurrency(curKey);
+                        setIsCurrencyMenuOpen(false);
+                      }}
+                      className={`w-full flex items-center justify-between px-2.5 py-2 rounded-lg text-xs transition-colors ${
+                        isSelected
+                          ? 'bg-amber-500/20 text-white font-bold border border-amber-500/40'
+                          : 'text-slate-300 hover:bg-slate-800 hover:text-white'
+                      }`}
+                    >
+                      <div className="flex items-center gap-2">
+                        <span>{cfg.flag}</span>
+                        <span>{cfg.name}</span>
+                      </div>
+                      <span className="font-mono text-amber-300 font-bold">{cfg.symbol.trim()}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            )}
           </div>
 
           {/* Simulation Toggle */}
@@ -88,7 +138,7 @@ export const Navbar: React.FC = () => {
               </span>
             </div>
             <p className="text-[9px] tracking-widest text-amber-200/60 uppercase font-bold">
-              EST. PAKISTAN • ROYAL AUCTION HOUSE
+              EST. ROYAL AUCTION HOUSE • WORLDWIDE ESCROW
             </p>
           </div>
         </Link>
@@ -155,7 +205,7 @@ export const Navbar: React.FC = () => {
                   <ShieldCheck className="w-3 h-3 text-amber-400 inline" />
                 </div>
                 <div className="text-[10px] font-mono text-emerald-400 font-semibold capitalize">
-                  {currentUser.role} • ₨ {(currentUser.walletBalance / 100000).toFixed(1)}L
+                  {currentUser.role} • {formatPrice(currentUser.walletBalance, true)}
                 </div>
               </div>
               <ChevronDown className="w-4 h-4 text-slate-400 hidden sm:block" />
@@ -197,7 +247,7 @@ export const Navbar: React.FC = () => {
                           </span>
                         </div>
                         <div className="text-[11px] text-slate-400 truncate font-mono">
-                          ₨ {user.walletBalance.toLocaleString('en-PK')}
+                          {formatPrice(user.walletBalance)}
                         </div>
                       </div>
                     </button>
@@ -230,6 +280,28 @@ export const Navbar: React.FC = () => {
       {/* Mobile Drawer */}
       {isMobileMenuOpen && (
         <div className="md:hidden bg-[#0C1527] border-b border-amber-500/20 px-4 pt-3 pb-5 space-y-3">
+          {/* Mobile Currency Picker */}
+          <div className="pb-2 border-b border-slate-800">
+            <span className="text-[11px] font-bold text-amber-300 block mb-1.5 flex items-center gap-1">
+              <Globe className="w-3.5 h-3.5" /> Currency ({currency}):
+            </span>
+            <div className="grid grid-cols-5 gap-1.5">
+              {(Object.keys(CURRENCY_CONFIG) as Currency[]).map((curKey) => (
+                <button
+                  key={curKey}
+                  onClick={() => setCurrency(curKey)}
+                  className={`py-1.5 px-1 rounded-lg text-center text-xs font-mono font-bold transition-colors ${
+                    currency === curKey
+                      ? 'bg-amber-500 text-slate-950 shadow'
+                      : 'bg-slate-900 text-slate-300 border border-slate-800'
+                  }`}
+                >
+                  {curKey}
+                </button>
+              ))}
+            </div>
+          </div>
+
           <Link
             href="/"
             onClick={() => setIsMobileMenuOpen(false)}

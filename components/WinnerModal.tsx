@@ -3,7 +3,7 @@
 import React, { useEffect } from 'react';
 import confetti from 'canvas-confetti';
 import { AuctionItem } from '../types/auction';
-import { formatPKR } from '../utils/formatters';
+import { useAuction } from '../context/AuctionContext';
 import { Trophy, CheckCircle, ShieldCheck, X, FileText, ArrowRight, AlertTriangle } from 'lucide-react';
 import Link from 'next/link';
 
@@ -20,6 +20,7 @@ export const WinnerModal: React.FC<WinnerModalProps> = ({
   onClose,
   winnerName,
 }) => {
+  const { formatPrice } = useAuction();
   useEffect(() => {
     if (isOpen) {
       // Fire celebratory confetti!
@@ -90,7 +91,7 @@ export const WinnerModal: React.FC<WinnerModalProps> = ({
           <div className="flex items-center justify-between pt-2">
             <span className="text-xs text-slate-400">Winning Hammer Price:</span>
             <span className="text-lg font-black font-mono text-amber-400">
-              {formatPKR(auction.currentBid)}
+              {formatPrice(auction.currentBid)}
             </span>
           </div>
         </div>

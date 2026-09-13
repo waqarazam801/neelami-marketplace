@@ -8,6 +8,8 @@ export type Category =
   | 'Real Estate & Land'
   | 'Collectibles';
 
+export type Currency = 'USD' | 'PKR' | 'AED' | 'GBP' | 'EUR';
+
 export interface Bid {
   id: string;
   auctionId: string;

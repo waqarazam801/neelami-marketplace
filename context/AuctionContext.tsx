@@ -1,9 +1,9 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react';
-import { AuctionItem, Bid, UserProfile, Category } from '../types/auction';
+import React, { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react';
+import { AuctionItem, Bid, UserProfile, Category, Currency } from '../types/auction';
 import { INITIAL_AUCTIONS, DEMO_USERS } from '../data/mockAuctions';
-import { getTimeRemaining } from '../utils/formatters';
+import { getTimeRemaining, formatPriceByCurrency } from '../utils/formatters';
 
 interface NotificationMessage {
   id: string;
@@ -26,16 +26,24 @@ interface AuctionContextType {
   clearNotification: (id: string) => void;
   isSimulationActive: boolean;
   setIsSimulationActive: (active: boolean) => void;
+  currency: Currency;
+  setCurrency: (c: Currency) => void;
+  formatPrice: (amountInPKR: number, compact?: boolean) => string;
 }
 
 const AuctionContext = createContext<AuctionContextType | undefined>(undefined);
 
 export const AuctionProvider = ({ children }: { children: ReactNode }) => {
   const [auctions, setAuctions] = useState<AuctionItem[]>(INITIAL_AUCTIONS);
-  const [currentUser, setCurrentUser] = useState<UserProfile>(DEMO_USERS[0]); // Hamza Khan (Buyer)
+  const [currentUser, setCurrentUser] = useState<UserProfile>(DEMO_USERS[0]);
   const [watchlist, setWatchlist] = useState<string[]>(['auc-101', 'auc-103']);
   const [notifications, setNotifications] = useState<NotificationMessage[]>([]);
   const [isSimulationActive, setIsSimulationActive] = useState<boolean>(true);
+  const [currency, setCurrency] = useState<Currency>('USD');
+
+  const formatPrice = useCallback((amountInPKR: number, compact?: boolean) => {
+    return formatPriceByCurrency(amountInPKR, currency, compact);
+  }, [currency]);
 
   // Load persisted data if any
   useEffect(() => {
@@ -48,12 +56,24 @@ export const AuctionProvider = ({ children }: { children: ReactNode }) => {
       if (savedWatchlist) {
         setWatchlist(JSON.parse(savedWatchlist));
       }
+      const savedCurrency = localStorage.getItem('neelami_currency') as Currency;
+      if (savedCurrency && ['USD', 'PKR', 'AED', 'GBP', 'EUR'].includes(savedCurrency)) {
+        setCurrency(savedCurrency);
+      }
     } catch (e) {
       console.warn('Storage read failed', e);
     }
   }, []);
 
   // Save to localStorage
+  useEffect(() => {
+    try {
+      localStorage.setItem('neelami_currency', currency);
+    } catch (e) {
+      console.warn('Storage write failed', e);
+    }
+  }, [currency]);
+
   useEffect(() => {
     try {
       localStorage.setItem('neelami_auctions', JSON.stringify(auctions));
@@ -117,7 +137,7 @@ export const AuctionProvider = ({ children }: { children: ReactNode }) => {
         if (amount < minRequired) {
           result = {
             success: false,
-            message: `Minimum acceptable bid is ₨ ${minRequired.toLocaleString('en-PK')}.`,
+            message: `Minimum acceptable bid is ${formatPriceByCurrency(minRequired, currency)}.`,
           };
           return item;
         }
@@ -298,6 +318,9 @@ export const AuctionProvider = ({ children }: { children: ReactNode }) => {
         clearNotification,
         isSimulationActive,
         setIsSimulationActive,
+        currency,
+        setCurrency,
+        formatPrice,
       }}
     >
       {children}

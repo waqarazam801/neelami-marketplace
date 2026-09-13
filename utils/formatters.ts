@@ -1,27 +1,51 @@
-/**
- * Currency and time formatters for Neelami.com (PKR focus)
- */
+import { Currency } from '../types/auction';
 
-export function formatPKR(amount: number, compact = false): string {
+/**
+ * Currency rates relative to 1 PKR
+ */
+const RATES_TO_PKR: Record<Currency, number> = {
+  PKR: 1,
+  USD: 278,
+  AED: 75.8,
+  GBP: 365,
+  EUR: 305,
+};
+
+export const CURRENCY_CONFIG: Record<Currency, { symbol: string; label: string; flag: string; name: string }> = {
+  USD: { symbol: '$', label: 'USD', flag: '🌐', name: 'US Dollar' },
+  PKR: { symbol: '₨ ', label: 'PKR', flag: '🇵🇰', name: 'Pakistani Rupee' },
+  AED: { symbol: 'AED ', label: 'AED', flag: '🇦🇪', name: 'UAE Dirham' },
+  GBP: { symbol: '£', label: 'GBP', flag: '🇬🇧', name: 'British Pound' },
+  EUR: { symbol: '€', label: 'EUR', flag: '🇪🇺', name: 'Euro' },
+};
+
+export function formatPriceByCurrency(amountInPKR: number, currency: Currency = 'USD', compact = false): string {
+  const rate = RATES_TO_PKR[currency] || 1;
+  const converted = amountInPKR / rate;
+  const symbol = CURRENCY_CONFIG[currency]?.symbol || '$';
+
   if (compact) {
-    if (amount >= 10000000) {
-      // Crores
-      return `₨ ${(amount / 10000000).toFixed(2)} Cr`;
-    }
-    if (amount >= 100000) {
-      // Lakhs
-      return `₨ ${(amount / 100000).toFixed(2)} Lac`;
-    }
-    if (amount >= 1000) {
-      return `₨ ${(amount / 1000).toFixed(0)}k`;
+    if (currency === 'PKR') {
+      if (converted >= 10000000) return `₨ ${(converted / 10000000).toFixed(2)} Cr`;
+      if (converted >= 100000) return `₨ ${(converted / 100000).toFixed(2)} Lac`;
+      if (converted >= 1000) return `₨ ${(converted / 1000).toFixed(0)}k`;
+    } else {
+      if (converted >= 1000000) return `${symbol}${(converted / 1000000).toFixed(2)}M`;
+      if (converted >= 1000) return `${symbol}${(converted / 1000).toFixed(1)}k`;
     }
   }
 
-  return '₨ ' + amount.toLocaleString('en-PK');
+  // Formatting with commas
+  const formattedNumber = Math.round(converted).toLocaleString(currency === 'PKR' ? 'en-PK' : 'en-US');
+  return `${symbol}${formattedNumber}`;
+}
+
+export function formatPKR(amount: number, compact = false): string {
+  return formatPriceByCurrency(amount, 'USD', compact);
 }
 
 export function formatPKRFull(amount: number): string {
-  return '₨ ' + amount.toLocaleString('en-PK');
+  return formatPriceByCurrency(amount, 'USD', false);
 }
 
 export interface TimeLeft {
@@ -68,7 +92,7 @@ export function formatRelativeTime(dateISO: string): string {
   
   if (diffMinutes < 1) return 'Just now';
   if (diffMinutes < 60) return `${diffMinutes}m ago`;
-  const diffHours = Math.floor(diffMinutes / 60);
+  const diffHours = Math.floor(diffMinutes / 24);
   if (diffHours < 24) return `${diffHours}h ago`;
   const diffDays = Math.floor(diffHours / 24);
   return `${diffDays}d ago`;

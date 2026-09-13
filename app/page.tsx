@@ -28,7 +28,7 @@ import {
 } from 'lucide-react';
 
 export default function HomePage() {
-  const { auctions } = useAuction();
+  const { auctions, currency, formatPrice } = useAuction();
 
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<Category>('All');
@@ -109,7 +109,7 @@ export default function HomePage() {
             <div className="lg:col-span-6 space-y-6">
               <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#0D182E] border border-amber-500/40 text-amber-300 text-xs font-semibold shadow-lg shadow-amber-950/20">
                 <Crown className="w-4 h-4 text-amber-400" />
-                <span className="tracking-wide">Pakistan’s Premier Royal Auction Exchange</span>
+                <span className="tracking-wide">Worldwide Premier Royal Auction Exchange</span>
               </div>
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-black tracking-tight text-white leading-[1.15]">
@@ -117,19 +117,19 @@ export default function HomePage() {
               </h1>
 
               <p className="text-base sm:text-lg text-slate-300 leading-relaxed max-w-xl font-light">
-                Discover and acquire museum-grade Mughal antiques, certified horology, precious gems, bespoke vehicles, and landmark properties through competitive, fair-market bidding in Pakistan.
+                Discover and acquire museum-grade antiques, certified horology, precious gems, bespoke vehicles, and landmark properties through competitive, fair-market bidding worldwide.
               </p>
 
               {/* Quick Trust Badges */}
               <div className="flex flex-wrap items-center gap-5 text-xs font-medium text-slate-300 pt-1">
                 <span className="flex items-center gap-1.5 text-amber-300">
-                  <ShieldCheck className="w-4 h-4 text-amber-400" /> Bank Escrow Protected
+                  <ShieldCheck className="w-4 h-4 text-amber-400" /> Bank & Global Escrow Protected
                 </span>
                 <span className="flex items-center gap-1.5 text-emerald-400">
                   <Clock className="w-4 h-4 text-emerald-400" /> 2-Min Anti-Sniping Soft Close
                 </span>
                 <span className="flex items-center gap-1.5 text-slate-300">
-                  <Award className="w-4 h-4 text-amber-400" /> 100% Certified Genuine
+                  <Award className="w-4 h-4 text-amber-400" /> Worldwide Insured Logistics
                 </span>
               </div>
 
@@ -215,13 +215,13 @@ export default function HomePage() {
                     <div className="pt-4 border-t border-amber-500/15 grid grid-cols-1 sm:grid-cols-2 gap-4 items-end bg-[#0B152A]/80 p-4.5 rounded-2xl border border-amber-500/20">
                       <div>
                         <span className="text-[10px] uppercase font-black tracking-widest text-slate-400">
-                          Current Hammer Price (PKR)
+                          Current Hammer Price ({currency})
                         </span>
                         <div className="text-3xl font-black text-amber-400 font-mono tracking-tight mt-0.5">
-                          {formatPKR(spotlightAuction.currentBid)}
+                          {formatPrice(spotlightAuction.currentBid)}
                         </div>
                         <span className="text-[11px] text-emerald-400 font-medium">
-                          Next Min Increment: +{formatPKR(spotlightAuction.minIncrement)}
+                          Next Min Increment: +{formatPrice(spotlightAuction.minIncrement)}
                         </span>
                       </div>
 
@@ -257,8 +257,10 @@ export default function HomePage() {
         <div className="rounded-3xl bg-gradient-to-r from-[#0C172E] via-[#0E1A34] to-[#0C172E] border border-amber-500/20 p-6 sm:p-8 shadow-2xl">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center divide-y lg:divide-y-0 lg:divide-x divide-amber-500/10">
             <div className="pt-3 lg:pt-0">
-              <div className="text-2xl sm:text-3xl font-black font-mono text-amber-400">₨ 4.8 Billion+</div>
-              <p className="text-xs uppercase tracking-wider text-slate-400 mt-1 font-semibold">Total Hammer Volume</p>
+              <div className="text-2xl sm:text-3xl font-black font-mono text-amber-400">
+                {currency === 'USD' ? '$18.5M+' : currency === 'PKR' ? '₨ 4.8B+' : formatPrice(4800000000, true) + '+'}
+              </div>
+              <p className="text-xs uppercase tracking-wider text-slate-400 mt-1 font-semibold">Global Hammer Volume</p>
             </div>
 
             <div className="pt-3 lg:pt-0">
@@ -272,8 +274,8 @@ export default function HomePage() {
             </div>
 
             <div className="pt-3 lg:pt-0">
-              <div className="text-2xl sm:text-3xl font-black font-mono text-emerald-400">50,000+</div>
-              <p className="text-xs uppercase tracking-wider text-slate-400 mt-1 font-semibold">Verified Pakistani Bidders</p>
+              <div className="text-2xl sm:text-3xl font-black font-mono text-emerald-400">140+ Countries</div>
+              <p className="text-xs uppercase tracking-wider text-slate-400 mt-1 font-semibold">Global Bidders & Collectors</p>
             </div>
           </div>
         </div>

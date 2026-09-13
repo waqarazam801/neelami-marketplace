@@ -14,7 +14,7 @@ interface AuctionCardProps {
 }
 
 export const AuctionCard: React.FC<AuctionCardProps> = ({ auction }) => {
-  const { isWatched, toggleWatchlist } = useAuction();
+  const { isWatched, toggleWatchlist, formatPrice } = useAuction();
   const watched = isWatched(auction.id);
   const reserveMet = auction.currentBid >= auction.reservePrice;
 
@@ -96,7 +96,7 @@ export const AuctionCard: React.FC<AuctionCardProps> = ({ auction }) => {
               </span>
               <div className="flex items-baseline gap-1 mt-0.5">
                 <span className="text-2xl font-black text-amber-400 font-mono tracking-tight">
-                  {formatPKR(auction.currentBid)}
+                  {formatPrice(auction.currentBid)}
                 </span>
               </div>
             </div>
@@ -113,7 +113,7 @@ export const AuctionCard: React.FC<AuctionCardProps> = ({ auction }) => {
                   </span>
                 ) : (
                   <span className="text-[10px] font-medium text-slate-400">
-                    Reserve: {formatPKR(auction.reservePrice, true)}
+                    Reserve: {formatPrice(auction.reservePrice, true)}
                   </span>
                 )}
               </div>

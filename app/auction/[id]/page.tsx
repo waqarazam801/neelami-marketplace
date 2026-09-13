@@ -5,6 +5,7 @@ import { useParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useAuction } from '../../../context/AuctionContext';
+import { AuctionItem } from '../../../types/auction';
 import { CountdownTimer } from '../../../components/CountdownTimer';
 import { LiveBidFeed } from '../../../components/LiveBidFeed';
 import { WinnerModal } from '../../../components/WinnerModal';
@@ -41,12 +42,14 @@ export default function AuctionRoomPage() {
     isWatched, 
     toggleWatchlist,
     isSimulationActive,
-    setIsSimulationActive 
+    setIsSimulationActive,
+    currency,
+    formatPrice
   } = useAuction();
 
   // Find auction item
   const auction = useMemo(() => {
-    return auctions.find((a) => a.id === auctionId);
+    return auctions.find((a: AuctionItem) => a.id === auctionId);
   }, [auctions, auctionId]);
 
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
@@ -96,7 +99,7 @@ export default function AuctionRoomPage() {
       : minRequiredBid;
 
     if (bidToPlace < minRequiredBid) {
-      setBidError(`Bid must be at least ₨ ${minRequiredBid.toLocaleString('en-PK')}.`);
+      setBidError(`Bid must be at least ${formatPrice(minRequiredBid)}.`);
       return;
     }
 
@@ -112,7 +115,7 @@ export default function AuctionRoomPage() {
   // Handle Buy Now
   const handleBuyNow = () => {
     if (!auction.buyNowPrice) return;
-    if (window.confirm(`Confirm immediate purchase of "${auction.title}" for ₨ ${auction.buyNowPrice.toLocaleString('en-PK')}?`)) {
+    if (window.confirm(`Confirm immediate purchase of "${auction.title}" for ${formatPrice(auction.buyNowPrice)}?`)) {
       const result = buyItNow(auction.id);
       if (result.success) {
         playGavelStrike();
@@ -196,7 +199,7 @@ export default function AuctionRoomPage() {
           {/* Thumbnails */}
           {auction.images.length > 1 && (
             <div className="flex items-center gap-3 overflow-x-auto pb-1">
-              {auction.images.map((img, idx) => (
+              {auction.images.map((img: string, idx: number) => (
                 <button
                   key={idx}
                   onClick={() => setSelectedImageIndex(idx)}
@@ -313,7 +316,7 @@ export default function AuctionRoomPage() {
                   <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800">
                     <span className="text-slate-400 block">Insured Courier Fee:</span>
                     <span className="text-slate-200 font-bold text-sm mt-0.5">
-                      {auction.shippingInfo.cost === 0 ? 'Complimentary Delivery' : formatPKR(auction.shippingInfo.cost)}
+                      {auction.shippingInfo.cost === 0 ? 'Complimentary Delivery' : formatPrice(auction.shippingInfo.cost)}
                     </span>
                   </div>
                   <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800">
@@ -378,10 +381,10 @@ export default function AuctionRoomPage() {
               <div className="flex items-baseline justify-between">
                 <div>
                   <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
-                    Current Highest Bid
+                    Current Highest Bid ({currency})
                   </span>
                   <div className="text-3xl font-black text-amber-400 font-mono mt-0.5">
-                    {formatPKR(auction.currentBid)}
+                    {formatPrice(auction.currentBid)}
                   </div>
                 </div>
 
@@ -397,14 +400,14 @@ export default function AuctionRoomPage() {
 
               {/* Status Banner */}
               <div className="pt-2 border-t border-slate-800 flex items-center justify-between text-xs">
-                <span className="text-slate-400">Starting Bid: {formatPKR(auction.startingBid)}</span>
+                <span className="text-slate-400">Starting Bid: {formatPrice(auction.startingBid)}</span>
                 {reserveMet ? (
                   <span className="text-emerald-400 font-bold flex items-center gap-1">
                     <CheckCircle2 className="w-3.5 h-3.5" /> Reserve Met
                   </span>
                 ) : (
                   <span className="text-amber-400/90 font-medium">
-                    Reserve: {formatPKR(auction.reservePrice)}
+                    Reserve: {formatPrice(auction.reservePrice)}
                   </span>
                 )}
               </div>
@@ -430,7 +433,7 @@ export default function AuctionRoomPage() {
                 {/* Quick Bid Increment Buttons */}
                 <div>
                   <label className="text-xs font-semibold text-slate-300 block mb-2">
-                    Quick Bid Increments (Min Increment: {formatPKR(auction.minIncrement)})
+                    Quick Bid Increments (Min Increment: +{formatPrice(auction.minIncrement)})
                   </label>
                   <div className="grid grid-cols-3 gap-2">
                     <button
@@ -438,21 +441,21 @@ export default function AuctionRoomPage() {
                       onClick={() => handleQuickBid(1)}
                       className="py-2.5 px-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-bold text-slate-200 transition-colors"
                     >
-                      +{formatPKR(auction.minIncrement, true)}
+                      +{formatPrice(auction.minIncrement, true)}
                     </button>
                     <button
                       type="button"
                       onClick={() => handleQuickBid(2)}
                       className="py-2.5 px-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-bold text-slate-200 transition-colors"
                     >
-                      +{formatPKR(auction.minIncrement * 2, true)}
+                      +{formatPrice(auction.minIncrement * 2, true)}
                     </button>
                     <button
                       type="button"
                       onClick={() => handleQuickBid(5)}
                       className="py-2.5 px-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-bold text-slate-200 transition-colors"
                     >
-                      +{formatPKR(auction.minIncrement * 5, true)}
+                      +{formatPrice(auction.minIncrement * 5, true)}
                     </button>
                   </div>
                 </div>
@@ -461,10 +464,10 @@ export default function AuctionRoomPage() {
                 <div>
                   <div className="flex items-center justify-between mb-1.5">
                     <label className="text-xs font-semibold text-slate-300">
-                      Or Enter Custom Bid (PKR ₨)
+                      Or Enter Custom Bid (Base ₨ PKR)
                     </label>
                     <span className="text-[11px] text-emerald-400 font-mono">
-                      Min: {formatPKR(minRequiredBid)}
+                      Min: {formatPrice(minRequiredBid)}
                     </span>
                   </div>
 
@@ -500,7 +503,7 @@ export default function AuctionRoomPage() {
                 >
                   <Gavel className="w-4 h-4" />
                   <span>
-                    Place Bid of {formatPKR(typeof customBidAmount === 'number' && customBidAmount > 0 ? customBidAmount : minRequiredBid)}
+                    Place Bid of {formatPrice(typeof customBidAmount === 'number' && customBidAmount > 0 ? customBidAmount : minRequiredBid)}
                   </span>
                 </button>
 
@@ -513,7 +516,7 @@ export default function AuctionRoomPage() {
                       className="w-full py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black text-xs shadow-lg shadow-amber-950/40 flex items-center justify-center gap-2 transition-all active:scale-[0.98]"
                     >
                       <ShoppingBag className="w-4 h-4" />
-                      <span>Buy It Now for {formatPKR(auction.buyNowPrice)}</span>
+                      <span>Buy It Now for {formatPrice(auction.buyNowPrice)}</span>
                     </button>
                     <p className="text-[10px] text-slate-400 text-center mt-1">
                       Skip the auction and purchase this lot immediately.
