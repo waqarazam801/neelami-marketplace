@@ -31,10 +31,12 @@ import {
 import TiltCard3D from '../components/TiltCard3D';
 import Model3DViewer from '../components/Model3DViewer';
 import AnimatedMarketplaceShowcase from '../components/AnimatedMarketplaceShowcase';
+import GSAPThreeHeroStage from '../components/GSAPThreeHeroStage';
 
 export default function HomePage() {
   const { auctions, currency, formatPrice } = useAuction();
 
+  const [heroMode, setHeroMode] = useState<'3d_stage' | 'spotlight'>('3d_stage');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<Category>('All');
   const [statusFilter, setStatusFilter] = useState<FilterStatus>('all');
@@ -168,128 +170,164 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Right Hero Spotlight Showcase */}
-            {spotlightAuction && (
-              <div className="lg:col-span-6">
-                <TiltCard3D maxAngle={5}>
-                  <div className="relative rounded-3xl bg-gradient-to-tr from-amber-300/40 via-slate-200/60 to-emerald-300/40 p-[1.5px] shadow-xl">
-                    <div className="bg-white rounded-[22px] p-6 sm:p-7 space-y-5 border border-slate-200">
-                      {/* Header with Urgency & Lot Tag */}
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                          <span className="px-3 py-1 rounded-full bg-amber-100 border border-amber-300 text-amber-900 font-black text-xs flex items-center gap-1.5 uppercase tracking-wider">
-                            <Flame className="w-3.5 h-3.5 text-amber-600" /> Crown Lot
+            {/* Right Hero Spotlight or Live 3D GSAP Stage */}
+            <div className="lg:col-span-6 space-y-3">
+              {/* Hero View Switcher Pill */}
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-1.5 p-1 bg-white/90 backdrop-blur-md rounded-2xl border border-slate-200 shadow-sm">
+                  <button
+                    onClick={() => setHeroMode('3d_stage')}
+                    className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                      heroMode === '3d_stage'
+                        ? 'bg-amber-500 text-slate-950 shadow-md font-black'
+                        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                    }`}
+                  >
+                    <Sparkles className="w-3.5 h-3.5 text-slate-950" />
+                    <span>🌟 2026 Live 3D Stage</span>
+                  </button>
+                  <button
+                    onClick={() => setHeroMode('spotlight')}
+                    className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                      heroMode === 'spotlight'
+                        ? 'bg-slate-900 text-white shadow-md font-black'
+                        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                    }`}
+                  >
+                    <Flame className="w-3.5 h-3.5 text-amber-500" />
+                    <span>Crown Lot #AUC-101</span>
+                  </button>
+                </div>
+
+                <span className="text-[11px] font-mono text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-300 font-bold hidden sm:inline-flex items-center gap-1">
+                  <ShieldCheck className="w-3 h-3" /> Three.js + GSAP 60FPS
+                </span>
+              </div>
+
+              {heroMode === '3d_stage' ? (
+                <GSAPThreeHeroStage initialArtifact="lamp" compact />
+              ) : (
+                spotlightAuction && (
+                  <TiltCard3D maxAngle={5}>
+                    <div className="relative rounded-3xl bg-gradient-to-tr from-amber-300/40 via-slate-200/60 to-emerald-300/40 p-[1.5px] shadow-xl">
+                      <div className="bg-white rounded-[22px] p-6 sm:p-7 space-y-5 border border-slate-200">
+                        {/* Header with Urgency & Lot Tag */}
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2">
+                            <span className="px-3 py-1 rounded-full bg-amber-100 border border-amber-300 text-amber-900 font-black text-xs flex items-center gap-1.5 uppercase tracking-wider">
+                              <Flame className="w-3.5 h-3.5 text-amber-600" /> Crown Lot
+                            </span>
+                            <span className="text-xs font-mono text-slate-500 font-semibold">LOT #{spotlightAuction.id.toUpperCase()}</span>
+                          </div>
+                          <span className="text-xs font-mono font-bold text-emerald-800 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-300">
+                            {spotlightAuction.bidsCount} Bids Active
                           </span>
-                          <span className="text-xs font-mono text-slate-500 font-semibold">LOT #{spotlightAuction.id.toUpperCase()}</span>
-                        </div>
-                        <span className="text-xs font-mono font-bold text-emerald-800 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-300">
-                          {spotlightAuction.bidsCount} Bids Active
-                        </span>
-                      </div>
-
-                      {/* Spotlight Image & Details */}
-                      <div className="grid grid-cols-1 sm:grid-cols-12 gap-5 items-center">
-                        <div className="relative sm:col-span-5 aspect-square rounded-2xl overflow-hidden bg-slate-100 border border-slate-200 shadow-inner group/thumb">
-                          <Image
-                            src={spotlightAuction.images[0]}
-                            alt={spotlightAuction.title}
-                            fill
-                            className="object-cover"
-                          />
-                          {spotlightAuction.model3dType && (
-                            <button
-                              onClick={(e) => {
-                                e.preventDefault();
-                                e.stopPropagation();
-                                setShowSpotlight3DModal(true);
-                              }}
-                              className="absolute inset-x-2 bottom-2 py-1.5 px-2.5 rounded-xl bg-amber-500 text-slate-950 text-[11px] font-bold flex items-center justify-center gap-1 shadow-md hover:bg-amber-400 transition-colors backdrop-blur-sm"
-                            >
-                              <Box className="w-3.5 h-3.5" />
-                              <span>Inspect in 3D</span>
-                            </button>
-                          )}
                         </div>
 
-                        <div className="sm:col-span-7 space-y-2.5">
-                          <div className="flex items-center justify-between">
-                            <div className="text-xs font-semibold uppercase tracking-wider text-amber-700">
-                              {spotlightAuction.category}
-                            </div>
+                        {/* Spotlight Image & Details */}
+                        <div className="grid grid-cols-1 sm:grid-cols-12 gap-5 items-center">
+                          <div className="relative sm:col-span-5 aspect-square rounded-2xl overflow-hidden bg-slate-100 border border-slate-200 shadow-inner group/thumb">
+                            <Image
+                              src={spotlightAuction.images[0]}
+                              alt={spotlightAuction.title}
+                              fill
+                              className="object-cover"
+                            />
                             {spotlightAuction.model3dType && (
-                              <span className="text-[10px] text-amber-800 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-300 flex items-center gap-1 font-mono font-bold">
-                                <Box className="w-3 h-3" /> 360° Mesh
-                              </span>
+                              <button
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  e.stopPropagation();
+                                  setShowSpotlight3DModal(true);
+                                }}
+                                className="absolute inset-x-2 bottom-2 py-1.5 px-2.5 rounded-xl bg-amber-500 text-slate-950 text-[11px] font-bold flex items-center justify-center gap-1 shadow-md hover:bg-amber-400 transition-colors backdrop-blur-sm"
+                              >
+                                <Box className="w-3.5 h-3.5" />
+                                <span>Inspect in 3D</span>
+                              </button>
                             )}
                           </div>
-                          <h2 className="text-xl sm:text-2xl font-serif font-bold text-slate-900 line-clamp-2 leading-snug">
-                            {spotlightAuction.title}
-                          </h2>
-                          <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed">
-                            {spotlightAuction.description}
-                          </p>
 
-                          <div className="flex items-center gap-2 text-xs text-slate-500 pt-1">
-                            <span>Consignor:</span>
-                            <span className="font-bold text-slate-800">{spotlightAuction.seller.name}</span>
-                            <span>•</span>
-                            <span className="text-amber-700 font-semibold">{spotlightAuction.seller.city}</span>
+                          <div className="sm:col-span-7 space-y-2.5">
+                            <div className="flex items-center justify-between">
+                              <div className="text-xs font-semibold uppercase tracking-wider text-amber-700">
+                                {spotlightAuction.category}
+                              </div>
+                              {spotlightAuction.model3dType && (
+                                <span className="text-[10px] text-amber-800 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-300 flex items-center gap-1 font-mono font-bold">
+                                  <Box className="w-3 h-3" /> 360° Mesh
+                                </span>
+                              )}
+                            </div>
+                            <h2 className="text-xl sm:text-2xl font-serif font-bold text-slate-900 line-clamp-2 leading-snug">
+                              {spotlightAuction.title}
+                            </h2>
+                            <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed">
+                              {spotlightAuction.description}
+                            </p>
+
+                            <div className="flex items-center gap-2 text-xs text-slate-500 pt-1">
+                              <span>Consignor:</span>
+                              <span className="font-bold text-slate-800">{spotlightAuction.seller.name}</span>
+                              <span>•</span>
+                              <span className="text-amber-700 font-semibold">{spotlightAuction.seller.city}</span>
+                            </div>
                           </div>
                         </div>
-                      </div>
 
-                      {/* Live Hammer Price & Ticking Countdown */}
-                      <div className="pt-4 border-t border-slate-100 grid grid-cols-1 sm:grid-cols-2 gap-4 items-end bg-slate-50 p-4.5 rounded-2xl border border-slate-200">
-                        <div>
-                          <span className="text-[10px] uppercase font-black tracking-widest text-slate-500">
-                            Current Hammer Price ({currency})
-                          </span>
-                          <div className="text-3xl font-black text-amber-700 font-mono tracking-tight mt-0.5">
-                            {formatPrice(spotlightAuction.currentBid)}
+                        {/* Live Hammer Price & Ticking Countdown */}
+                        <div className="pt-4 border-t border-slate-100 grid grid-cols-1 sm:grid-cols-2 gap-4 items-end bg-slate-50 p-4.5 rounded-2xl border border-slate-200">
+                          <div>
+                            <span className="text-[10px] uppercase font-black tracking-widest text-slate-500">
+                              Current Hammer Price ({currency})
+                            </span>
+                            <div className="text-3xl font-black text-amber-700 font-mono tracking-tight mt-0.5">
+                              {formatPrice(spotlightAuction.currentBid)}
+                            </div>
+                            <span className="text-[11px] text-emerald-700 font-semibold">
+                              Next Min Increment: +{formatPrice(spotlightAuction.minIncrement)}
+                            </span>
                           </div>
-                          <span className="text-[11px] text-emerald-700 font-semibold">
-                            Next Min Increment: +{formatPrice(spotlightAuction.minIncrement)}
-                          </span>
+
+                          <div className="sm:text-right">
+                            <span className="text-[10px] uppercase font-black tracking-widest text-slate-500 block mb-1">
+                              Time Left To Bid
+                            </span>
+                            <div className="inline-block sm:float-right">
+                              <CountdownTimer endTime={spotlightAuction.endTime} showLabels={false} />
+                            </div>
+                          </div>
                         </div>
 
-                        <div className="sm:text-right">
-                          <span className="text-[10px] uppercase font-black tracking-widest text-slate-500 block mb-1">
-                            Time Left To Bid
-                          </span>
-                          <div className="inline-block sm:float-right">
-                            <CountdownTimer endTime={spotlightAuction.endTime} showLabels={false} />
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Action Buttons Row */}
-                      <div className="grid grid-cols-1 sm:grid-cols-12 gap-3 pt-1">
-                        {spotlightAuction.model3dType && (
-                          <button
-                            type="button"
-                            onClick={() => setShowSpotlight3DModal(true)}
-                            className="sm:col-span-5 flex items-center justify-center gap-1.5 py-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-amber-900 border border-amber-300 font-bold text-xs uppercase tracking-wider transition-all shadow-sm"
+                        {/* Action Buttons Row */}
+                        <div className="grid grid-cols-1 sm:grid-cols-12 gap-3 pt-1">
+                          {spotlightAuction.model3dType && (
+                            <button
+                              type="button"
+                              onClick={() => setShowSpotlight3DModal(true)}
+                              className="sm:col-span-5 flex items-center justify-center gap-1.5 py-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-amber-900 border border-amber-300 font-bold text-xs uppercase tracking-wider transition-all shadow-sm"
+                            >
+                              <Box className="w-4 h-4 text-amber-600" />
+                              <span>3D Inspect</span>
+                            </button>
+                          )}
+                          <Link
+                            href={`/auction/${spotlightAuction.id}`}
+                            className={`${
+                              spotlightAuction.model3dType ? 'sm:col-span-7' : 'sm:col-span-12'
+                            } flex items-center justify-center gap-2 py-4 rounded-xl bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 hover:from-amber-400 hover:to-amber-300 text-slate-950 font-black text-sm uppercase tracking-wider shadow-md hover:shadow-lg transition-transform active:scale-[0.98]`}
                           >
-                            <Box className="w-4 h-4 text-amber-600" />
-                            <span>3D Inspect</span>
-                          </button>
-                        )}
-                        <Link
-                          href={`/auction/${spotlightAuction.id}`}
-                          className={`${
-                            spotlightAuction.model3dType ? 'sm:col-span-7' : 'sm:col-span-12'
-                          } flex items-center justify-center gap-2 py-4 rounded-xl bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 hover:from-amber-400 hover:to-amber-300 text-slate-950 font-black text-sm uppercase tracking-wider shadow-md hover:shadow-lg transition-transform active:scale-[0.98]`}
-                        >
-                          <Gavel className="w-4 h-4" />
-                          <span>Enter Bidding Room</span>
-                          <ArrowRight className="w-4 h-4" />
-                        </Link>
+                            <Gavel className="w-4 h-4" />
+                            <span>Enter Bidding Room</span>
+                            <ArrowRight className="w-4 h-4" />
+                          </Link>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </TiltCard3D>
-              </div>
-            )}
+                  </TiltCard3D>
+                )
+              )}
+            </div>
           </div>
         </div>
       </section>
@@ -321,6 +359,24 @@ export default function HomePage() {
             </div>
           </div>
         </div>
+      </section>
+
+      {/* Royal 3D Interactive Exhibition Vault (Awwwards 2026 GSAP + Three.js Showcase) */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center space-y-3 mb-8">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-100/90 text-amber-950 border border-amber-300 text-xs font-mono font-bold uppercase tracking-wider shadow-sm">
+            <Sparkles className="w-4 h-4 text-amber-600 animate-pulse" />
+            <span>GSAP + Three.js • Awwwards 2026 Exhibition</span>
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-serif font-black text-slate-900 tracking-tight">
+            Touch, Orbit & Experience Crown Antiquities in 3D WebGL
+          </h2>
+          <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto font-normal">
+            Interact with 24-karat gold repousse craftsmanship, test the magic lamp with particle bursts, rotate certified horological movements, and inspect gemstone refractions in real-time.
+          </p>
+        </div>
+
+        <GSAPThreeHeroStage initialArtifact="crown" />
       </section>
 
       {/* Animated Motion Video Experience for Bidders & Sellers */}
